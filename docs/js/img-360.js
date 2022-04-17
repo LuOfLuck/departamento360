@@ -14,7 +14,7 @@ const modelos = [
 
 			`,
 		"footer":"infografia oficial: www.telesmart.com",
-		"minLong":0.68,
+		"minLong":6.19,
 		"maxLong":0.17,
 		"minLat":-0.19,
 		"maxLat":-0.04,
@@ -129,9 +129,9 @@ const viewerFocus = (viewer, longitude, latitude, element)=>{
   boxEnd.classList.add('button--end--active');
   boxCartel.classList.add('box--active')
 
-  boxTitulo.innerText = element.titulo
-  boxDescripcion.innerText = element.descripcion
-  boxFooter.innerText = element.footer
+  boxTitulo.innerText = element.titulo;
+  boxDescripcion.innerText = element.descripcion;
+  boxFooter.innerText = element.footer;
 }
 const viewerNormalize = (viewer, domBox)=>{
 	buttonTop.style.display = 'block'
@@ -176,8 +176,11 @@ const main = () => {
 	  	let minLat = element["minLat"]
 	  	let maxLat = element["maxLat"]
 	  	console.log(maxLong +" / "+ minLong)
-			
-			log =(maxLong < minLong)? maxLong > longitude || minLong < longitude:maxLong > longitude && minLong < longitude;
+			if(maxLong < minLong){
+			 log = maxLong > longitude  || minLong < longitude;
+			}else{
+			 log = maxLong > longitude && minLong < longitude;
+			}
 			lat = maxLat > latitude && minLat < latitude
 			//capaz en un futuro cercano no entienda que hize aca asi que abajo una pequeña descripcion;
 			if(log && lat) {

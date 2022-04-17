@@ -107,7 +107,7 @@ body{
 	right: 40px;
 	color: white;
 	background: rgba(0, 0, 0, .5);
-	border: 5px solid royalblue;
+	border: 5px solid rgba(0, 0, 0, .7);
 	opacity: 0;
 	z-index: -1;
 	transition: 2s;
@@ -115,7 +115,7 @@ body{
 
 }
 .box__header{
-	background: royalblue;
+	background: rgba(0, 0, 0, .7);
 
 }
 .box__header__h3{
