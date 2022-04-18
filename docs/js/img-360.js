@@ -1,9 +1,11 @@
+const buttonNavegar = document.getElementById("button--navegar")
 const buttonTop = document.getElementById("button--top")
 const boxEnd = document.getElementById("button--end")
 const boxCartel = document.getElementById("box--cartel")
 var boxTitulo = boxCartel.querySelector(".box__header__h3")
 var boxDescripcion = boxCartel.querySelector(".box__body__p")
 var boxFooter = boxCartel.querySelector(".box__footer__p")
+var lugar = document.querySelector('#viewer');
 const modelos = [
 	{
 		"titulo":"Smart TV 32 pulgadas",
@@ -108,86 +110,158 @@ const modelos = [
 		"maxLat":-0.73,
 	},
 ]
-const viewerFocus = (viewer, longitude, latitude, element)=>{
-	buttonTop.style.display = 'none'
-  viewer.config.mousewheel = false;
-  viewer.config.mousemove = false;
-  viewer.renderer.camera.far *= 2;
-  let ob = viewer.getPosition()
-  new PhotoSphereViewer.Animation({
-    properties: {
-     	lat: { start: ob.latitude, end: latitude },
-     	long: { start: ob.longitude, end: longitude },
-     	zoom: { start: viewer.getZoomLevel(), end: 75 },
-    },
-    duration: 1000,
-    onTick: (properties) => {
-     	viewer.rotate({ longitude: properties.long, latitude: properties.lat });
-     	viewer.zoom(properties.zoom);
-    }
-  });
-  boxEnd.classList.add('button--end--active');
-  boxCartel.classList.add('box--active')
+const salidas = [	
+	{		
+		"cuartoId":1,
+		"minLong":0.68,
+		"maxLong":0.90,
+		"minLat":-0.49,
+		"maxLat":-0.10,
+	},	
+]
+const cuartos = [
+	{
+		"id":0,
+		"url":"https://www.luofluck.tech/360/1.jpg",
+		"modelos":modelos,
+		"salidas":salidas
 
-  boxTitulo.innerText = element.titulo;
-  boxDescripcion.innerText = element.descripcion;
-  boxFooter.innerText = element.footer;
+	},
+	{
+		"id":1,
+		"url":"https://www.luofluck.tech/360/2.jpg",
+		"modelos":[],
+		"salidas":[	{		
+			"cuartoId":0,
+			"minLong":0.70,
+			"maxLong":1.01,
+			"minLat":-0.32,
+			"maxLat":0.11,
+			},
+		]
+	}
+]
+
+
+class ViewerConstructor{
+	constructor(modelosObj) {
+		  this.cuartos = cuartos;
+	    this.viewerUrl = modelosObj.url;
+	    this.modelosObj = modelosObj.modelos;
+	    this.modelosDir = modelosObj.salidas;
+	    this.boxEnd = boxEnd;
+	    this.viewer = this.createdViewer();
+	    this.longitude = null;
+		  this.latitude = null;
+	}
+	createdViewer(){
+		try{
+			
+			lugar.innerHTML = "";
+			this.viewer = new PhotoSphereViewer.Viewer({
+				container: lugar,
+				panorama: this.viewerUrl,
+				defaultLat: 0,
+			  defaultLong: 0,
+			  defaultZoomLvl: 0,
+			  mousemove: true,
+			  mousewheel: true,
+				navbar: null,
+			});
+			this.viewerClic();
+			this.viewerExit();
+			return this.viewer;
+		}
+		catch{
+			return console.log("error");
+		}
+	}
+	viewerNormalize(){
+		buttonTop.style.display = 'block'
+		boxEnd.classList.remove("button--end--active");
+		boxCartel.classList.remove("box--active");
+		this.viewer.config.mousewheel = true;
+	 	this.viewer.config.mousemove = true;
+	 	new PhotoSphereViewer.Animation({
+	  	properties: {
+	      zoom: { start: 75, end: 0 },
+	    },
+	    duration: 1000,
+	    onTick: (properties) => {
+	      this.viewer.zoom(properties.zoom);
+	    }
+	  });
+	}
+	viewerFocus(longitude, latitude, element){
+		buttonTop.style.display = 'none'
+	  this.viewer.config.mousewheel = false;
+	  this.viewer.config.mousemove = false;
+	  this.viewer.renderer.camera.far *= 2;
+	  let ob = this.viewer.getPosition()
+	  new PhotoSphereViewer.Animation({
+	    properties: {
+	     	lat: { start: ob.latitude, end: latitude },
+	     	long: { start: ob.longitude, end: longitude },
+	     	zoom: { start: this.viewer.getZoomLevel(), end: 75 },
+	    },
+	    duration: 1000,
+	    onTick: (properties) => {
+	     	this.viewer.rotate({ longitude: properties.long, latitude: properties.lat });
+	     	this.viewer.zoom(properties.zoom);
+	    }
+	  });
+	  boxEnd.classList.add('button--end--active');
+	  boxCartel.classList.add('box--active')
+
+	  boxTitulo.innerText = element.titulo;
+	  boxDescripcion.innerText = element.descripcion;
+	  boxFooter.innerText = element.footer;
+	}
+	viewerClic(){
+		this.viewer.on('click', (e, data) => {
+			console.log(`${data.rightclick?'right ':''}clicked at longitude: ${data.longitude} latitude: ${data.latitude}`);
+		 	this.longitude = data.longitude;
+		  this.latitude = data.latitude;
+			this.modelosObj.forEach((element)=>{
+				if(this.viewerlogAndLatVal(element)) this.viewerFocus(this.longitude, this.latitude, element);
+		  })	
+		  this.modelosDir.forEach((element)=>{
+				if(this.viewerlogAndLatVal(element)){
+					console.log(cuartos[element.cuartoId])
+					this.viewer.destroy()
+					const sala = new ViewerConstructor(cuartos[element.cuartoId])
+				}
+		  })
+
+		});
+	}
+	viewerlogAndLatVal(element){
+		//capaz en un futuro cercano no entienda que hize aca asi que abajo una pequeña descripcion;
+		let minLong = element["minLong"]
+		let maxLong = element["maxLong"]  	
+		let minLat = element["minLat"]
+		let maxLat = element["maxLat"]
+		let log = (maxLong < minLong)? maxLong > this.longitude  || minLong < this.longitude: maxLong > this.longitude && minLong < this.longitude;
+		let lat = maxLat > this.latitude && minLat < this.latitude;
+		return (log && lat) ? true : false
+	}
+	viewerExit(){
+		boxEnd.addEventListener("click", ()=> this.viewerNormalize()) 
+		//ola
+	}
 }
-const viewerNormalize = (viewer, domBox)=>{
-	buttonTop.style.display = 'block'
-	boxEnd.classList.remove("button--end--active");
-	domBox.classList.remove("box--active");
-	viewer.config.mousewheel = true;
- 	viewer.config.mousemove = true;
- 	new PhotoSphereViewer.Animation({
-  properties: {
-      zoom: { start: 75, end: 0 },
-    },
-    duration: 1000,
-    onTick: (properties) => {
-      viewer.zoom(properties.zoom);
-    }
-  });
+const main = ()=>{
+	const vistaPrinc = new ViewerConstructor(cuartos[0])
 }
+main()
 
-
-const main = () => {
-	const viewer = new PhotoSphereViewer.Viewer({
-		container: document.querySelector('#viewer'),
-		panorama: 'https://www.luofluck.tech/360/1.jpg',
-		defaultLat: 0,
-	  defaultLong: 0,
-	  defaultZoomLvl: 0,
-	  mousemove: true,
-	  mousewheel: true,
-		navbar: null,
-	});
-	boxEnd.addEventListener("click", ()=> viewerNormalize(viewer, boxCartel))
-	viewer.on('ready');
-	viewer.on('click', (e, data) => {
-	  console.log(`${data.rightclick?'right ':''}clicked at longitude: ${data.longitude} latitude: ${data.latitude}`);
-	  let longitude = data.longitude;
-	  let latitude = data.latitude;
-
-
-	  modelos.forEach( (element)=>{
-	  	let minLong = element["minLong"]
-	  	let maxLong = element["maxLong"]  	
-	  	let minLat = element["minLat"]
-	  	let maxLat = element["maxLat"]
-	  	console.log(maxLong +" / "+ minLong)
-			if(maxLong < minLong){
-			 log = maxLong > longitude  || minLong < longitude;
-			}else{
-			 log = maxLong > longitude && minLong < longitude;
-			}
-			lat = maxLat > latitude && minLat < latitude
-			//capaz en un futuro cercano no entienda que hize aca asi que abajo una pequeña descripcion;
-			if(log && lat) {
-		  		viewerFocus(viewer, longitude, latitude, element);
-		  	}
-	  })
-		  /*
+buttonNavegar.addEventListener("click",e=>{
+	lugar.classList.add("image--mostrar");
+});
+buttonTop.addEventListener("click",e=>{
+	lugar.classList.remove("image--mostrar");
+})
+/*
 				La onda es simple hoy me entere que voy a ser tio ahr que tenia que ver 
 				(10:31pm - 16/04/2022)
 				ahr bueno lo que hago es a hay un error donde el maximo es mas chico que 
@@ -209,8 +283,4 @@ const main = () => {
 				aprendes a besar no viene mal
 
 				eso vamos a hacerlo un meme despues. FIN
-		  */
-	});
-}
-main()
-
+*/

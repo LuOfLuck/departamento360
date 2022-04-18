@@ -7,17 +7,23 @@ html {
   scroll-behavior: smooth;
 }
 body{
-	overflow: hidden;
-	width: 100vw;
-	height: 100vh;
+	overflow-x: hidden;
+	max-width: 100vw;
+	min-height: 100vh;
 	font-family: 'Playfair Display', serif;
 }
 .image-1{
-	transform: translateY(100vh);
+	position: fixed;
+	transition: 2s ease;
+	top: 100%;
+	left: 0;
 	width: 100vw;
 	height: 100vh;
 	display: block;
 	cursor: pointer;
+}
+.image--mostrar{
+	top: 0;
 }
 .a{
 	width: 100px !important;
@@ -28,9 +34,6 @@ body{
 }
 .banner{
 	display: flex;
-	position: fixed;
-	top: 0;
-	left: 0;
 	width: 100vw;
 	height: 100vh;
 	background-image: url("../img/fondo.jpg");
