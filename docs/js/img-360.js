@@ -145,14 +145,14 @@ const cuartos = [
 
 class ViewerConstructor{
 	constructor(modelosObj) {
-		  this.cuartos = cuartos;
+		this.cuartos = cuartos;
 	    this.viewerUrl = modelosObj.url;
 	    this.modelosObj = modelosObj.modelos;
 	    this.modelosDir = modelosObj.salidas;
 	    this.boxEnd = boxEnd;
 	    this.viewer = this.createdViewer();
 	    this.longitude = null;
-		  this.latitude = null;
+		 this.latitude = null;
 	}
 	createdViewer(){
 		try{
@@ -162,10 +162,10 @@ class ViewerConstructor{
 				container: lugar,
 				panorama: this.viewerUrl,
 				defaultLat: 0,
-			  defaultLong: 0,
-			  defaultZoomLvl: 0,
-			  mousemove: true,
-			  mousewheel: true,
+				defaultLong: 0,
+				defaultZoomLvl: 0,
+				mousemove: true,
+				mousewheel: true,
 				navbar: null,
 			});
 			this.viewerClic();
@@ -182,7 +182,7 @@ class ViewerConstructor{
 		boxCartel.classList.remove("box--active");
 		this.viewer.config.mousewheel = true;
 	 	this.viewer.config.mousemove = true;
-	 	new PhotoSphereViewer.Animation({
+	 	new PhotoSphereViewer.utils.Animation({
 	  	properties: {
 	      zoom: { start: 75, end: 0 },
 	    },
@@ -194,34 +194,35 @@ class ViewerConstructor{
 	}
 	viewerFocus(longitude, latitude, element){
 		buttonTop.style.display = 'none'
-	  this.viewer.config.mousewheel = false;
-	  this.viewer.config.mousemove = false;
-	  this.viewer.renderer.camera.far *= 2;
-	  let ob = this.viewer.getPosition()
-	  new PhotoSphereViewer.Animation({
-	    properties: {
-	     	lat: { start: ob.latitude, end: latitude },
-	     	long: { start: ob.longitude, end: longitude },
-	     	zoom: { start: this.viewer.getZoomLevel(), end: 75 },
-	    },
-	    duration: 1000,
-	    onTick: (properties) => {
-	     	this.viewer.rotate({ longitude: properties.long, latitude: properties.lat });
-	     	this.viewer.zoom(properties.zoom);
-	    }
-	  });
-	  boxEnd.classList.add('button--end--active');
-	  boxCartel.classList.add('box--active')
+		this.viewer.config.mousewheel = false;
+		this.viewer.config.mousemove = false;
+	 	this.viewer.renderer.camera.far *= 2;
+		let ob = this.viewer.getPosition()
+		console.log("llego aqui")
+		new PhotoSphereViewer.utils.Animation({
+		    properties: {
+		     	lat: { start: ob.latitude, end: latitude },
+		     	long: { start: ob.longitude, end: longitude },
+		     	zoom: { start: this.viewer.getZoomLevel(), end: 75 },
+		    },
+		    duration: 1000,
+		    onTick: (properties) => {
+		     	this.viewer.rotate({ longitude: properties.long, latitude: properties.lat });
+		     	this.viewer.zoom(properties.zoom);
+		    }
+	  	});
+		boxEnd.classList.add('button--end--active');
+		boxCartel.classList.add('box--active')
 
-	  boxTitulo.innerText = element.titulo;
-	  boxDescripcion.innerText = element.descripcion;
-	  boxFooter.innerText = element.footer;
+		boxTitulo.innerText = element.titulo;
+		boxDescripcion.innerText = element.descripcion;
+		boxFooter.innerText = element.footer;
 	}
 	viewerClic(){
 		this.viewer.on('click', (e, data) => {
 			console.log(`${data.rightclick?'right ':''}clicked at longitude: ${data.longitude} latitude: ${data.latitude}`);
 		 	this.longitude = data.longitude;
-		  this.latitude = data.latitude;
+		    this.latitude = data.latitude;
 			this.modelosObj.forEach((element)=>{
 				if(this.viewerlogAndLatVal(element)) this.viewerFocus(this.longitude, this.latitude, element);
 		  })	
@@ -254,11 +255,10 @@ const main = ()=>{
 	const vistaPrinc = new ViewerConstructor(cuartos[0])
 }
 main()
-
-buttonNavegar.addEventListener("click",e=>{
-	lugar.classList.add("image--mostrar");
-});
-buttonTop.addEventListener("click",e=>{
+    buttonNavegar.addEventListener("click",e=>{
+	    lugar.classList.add("image--mostrar");
+    });
+    buttonTop.addEventListener("click",e=>{
 	lugar.classList.remove("image--mostrar");
 })
 /*
