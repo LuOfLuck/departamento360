@@ -6,132 +6,142 @@ var boxTitulo = boxCartel.querySelector(".box__header__h3")
 var boxDescripcion = boxCartel.querySelector(".box__body__p")
 var boxFooter = boxCartel.querySelector(".box__footer__p")
 var lugar = document.querySelector('#viewer');
-const modelos = [
-	{
-		"titulo":"Smart TV 32 pulgadas",
-		"descripcion":`
-			Una tele copada, todos queremos una telesmart, 
-			yo quiero una tele tu quieres una tele, ella quiere una tele, metele wacho
-			mira esta tremenda es de colores y tiene waifai incluido
 
-			`,
-		"footer":"infografia oficial: www.telesmart.com",
-		"minLong":6.19,
-		"maxLong":0.17,
-		"minLat":-0.19,
-		"maxLat":-0.04,
-	},	
-	{
-		"titulo":"2 cosinas de pared",
-		"descripcion":`
-			¿Porque tener una si podes tener 2?
-			No hablo de esposas else cocinas de pared bien copadas,
-			eheh mira aca te haces tremendas comidas
-			comer es eso que hace feliz a la gente
-			Se feliz :)
-		`,
-		"footer":"infografia oficial: www.cosinaperrona.com",
-		"minLong":1.51,
-		"maxLong":1.89,
-		"minLat":-0.56,
-		"maxLat":-0.06,
-	},	
-	{
-		"titulo":"cocina electrica",
-		"descripcion":`
-			wacho odio contamintar pero obvio no puedo dejar de hacerlo
-			mejor una cocina electrica que no entiendo la diferencia pero se ve como del futuro
-			eeeaaaaaa
-			bueno eso
+const modelos = {
+	"room1":{
+		"objetos":[
+			{
+				"titulo":"Smart TV 32 pulgadas",
+				"descripcion":`
+					Una tele copada, todos queremos una telesmart, 
+					yo quiero una tele tu quieres una tele, ella quiere una tele, metele wacho
+					mira esta tremenda es de colores y tiene waifai incluido
 
-			no me compres obteneme bv
-		`,
-		"footer":"infografia oficial: www.pornhub.com",
-		"minLong":3.40, 
-		"maxLong":3.97,
-		"minLat":-0.95,
-		"maxLat":-0.68,
-	},	
-	{
-		"titulo":"Lavadero",
-		"descripcion":`
-			Aca te podes lavar la manos, la cara, los platos
-			y esas cosas, sale agua corriente que podes tomar cuando no pagas el agua
+					`,
+				"footer":"infografia oficial: www.telesmart.com",
+				"minLong":6.19,
+				"maxLong":0.17,
+				"minLat":-0.19,
+				"maxLat":-0.04,
+			},	
+			{
+				"titulo":"2 cosinas de pared",
+				"descripcion":`
+					¿Porque tener una si podes tener 2?
+					No hablo de esposas else cocinas de pared bien copadas,
+					eheh mira aca te haces tremendas comidas
+					comer es eso que hace feliz a la gente
+					Se feliz :)
+				`,
+				"footer":"infografia oficial: www.cosinaperrona.com",
+				"minLong":1.51,
+				"maxLong":1.89,
+				"minLat":-0.56,
+				"maxLat":-0.06,
+			},	
+			{
+				"titulo":"cocina electrica",
+				"descripcion":`
+					wacho odio contamintar pero obvio no puedo dejar de hacerlo
+					mejor una cocina electrica que no entiendo la diferencia pero se ve como del futuro
+					eeeaaaaaa
+					bueno eso
 
-			bueno eso tkm, tengo que rellenar mas texto asi que bueno voy a escribir algo mas
-			tambien puedo decir que la vida no es tan mala
-		`,
-		"footer":"infografia oficial: www.luofluck.tech",
-		"minLong":4.69, 
-		"maxLong":4.99,
-		"minLat":-0.56,
-		"maxLat":-0.45,
+					no me compres obteneme bv
+				`,
+				"footer":"infografia oficial: www.pornhub.com",
+				"minLong":3.40, 
+				"maxLong":3.97,
+				"minLat":-0.95,
+				"maxLat":-0.68,
+			},	
+			{
+				"titulo":"Lavadero",
+				"descripcion":`
+					Aca te podes lavar la manos, la cara, los platos
+					y esas cosas, sale agua corriente que podes tomar cuando no pagas el agua
+
+					bueno eso tkm, tengo que rellenar mas texto asi que bueno voy a escribir algo mas
+					tambien puedo decir que la vida no es tan mala
+				`,
+				"footer":"infografia oficial: www.luofluck.tech",
+				"minLong":4.69, 
+				"maxLong":4.99,
+				"minLat":-0.56,
+				"maxLat":-0.45,
+			},
+			{
+				"titulo":"Ventana",
+				"descripcion":`
+					Vista a la terraza re copada
+					ondaaaa naaaa pero mira esta vista, te entran mosquitos a la noche pero con un espiral se arregla
+					lo mismo, la ventana es corredisa, tiene una cortina para que no te vean los vecinos
+					y especial para mirar durante las crisis existenciales
+				`,
+				"footer":"infografia oficial: www.mequieromorir.com",
+				"minLong":4.45, 
+				"maxLong":5.11,
+				"minLat":-0.34,
+				"maxLat":0.45,
+			},	
+			{
+				"titulo":"Heladera inteligente",
+				"descripcion":`
+					esta es como una heladera... pero no cualquier heladera, esta tiene algo de diferente, especial...
+					bueno eso... te sirve para mas cosas... como nc soy pobre no tengo una de esas en mi casa
+					¡pero ey!
+					En el titulo dice inteligente, onda debe ser mejor 
+				`,
+				"footer":"infografia oficial: www.inteligenteesnoenamorarse.com",
+				"minLong":0.94, 
+				"maxLong":1.45,
+				"minLat":-0.55,
+				"maxLat":-0.22,
+			},	
+			{
+				"titulo":"Limones... ",
+				"descripcion":`
+					Limones... ¿porque no limones? onda... son limones :D
+					todos aman los limones
+					ella ama los limones
+					Come estos limones y ella te va a amar...
+
+				`,
+				"minLong":2.78, 
+				"maxLong":3.11,
+				"minLat":-0.91,
+				"maxLat":-0.73,
+			}
+		],
+		"salidas":[
+			{		
+				"cuartoId":1,
+				"minLong":0.68,
+				"maxLong":0.90,
+				"minLat":-0.49,
+				"maxLat":-0.10,
+			},	
+		],
 	},
-	{
-		"titulo":"Ventana",
-		"descripcion":`
-			Vista a la terraza re copada
-			ondaaaa naaaa pero mira esta vista, te entran mosquitos a la noche pero con un espiral se arregla
-			lo mismo, la ventana es corredisa, tiene una cortina para que no te vean los vecinos
-			y especial para mirar durante las crisis existenciales
-		`,
-		"footer":"infografia oficial: www.mequieromorir.com",
-		"minLong":4.45, 
-		"maxLong":5.11,
-		"minLat":-0.34,
-		"maxLat":0.45,
-	},	
-	{
-		"titulo":"Heladera inteligente",
-		"descripcion":`
-			esta es como una heladera... pero no cualquier heladera, esta tiene algo de diferente, especial...
-			bueno eso... te sirve para mas cosas... como nc soy pobre no tengo una de esas en mi casa
-			¡pero ey!
-			En el titulo dice inteligente, onda debe ser mejor 
-		`,
-		"footer":"infografia oficial: www.inteligenteesnoenamorarse.com",
-		"minLong":0.94, 
-		"maxLong":1.45,
-		"minLat":-0.55,
-		"maxLat":-0.22,
-	},	
-	{
-		"titulo":"Limones... ",
-		"descripcion":`
-			Limones... ¿porque no limones? onda... son limones :D
-			todos aman los limones
-			ella ama los limones
-			Come estos limones y ella te va a amar...
+	"room2":{
+		"objetos":[
+			{
+				"titulo":"RELOS GIGANTE",
+				"descripcion":`
+					Una reloj copada, todos queremos un reloj, 
+					yo quiero un reloj tu quieres una reloj, ella quiere una reloj, metele wacho
+					mira esta tremenda es de colores y tiene waifai incluido
 
-		`,
-		"minLong":2.78, 
-		"maxLong":3.11,
-		"minLat":-0.91,
-		"maxLat":-0.73,
-	},
-]
-const salidas = [	
-	{		
-		"cuartoId":1,
-		"minLong":0.68,
-		"maxLong":0.90,
-		"minLat":-0.49,
-		"maxLat":-0.10,
-	},	
-]
-const cuartos = [
-	{
-		"id":0,
-		"url":"https://www.luofluck.tech/360/1.jpg",
-		"modelos":modelos,
-		"salidas":salidas
-
-	},
-	{
-		"id":1,
-		"url":"https://www.luofluck.tech/360/2.jpg",
-		"modelos":[],
-		"salidas":[	{		
+					`,
+				"footer":"infografia oficial: www.reloj.com",
+				"minLong":5,
+				"maxLong":0.4,
+				"minLat":-0.06,
+				"maxLat":0.6,
+			},
+		],
+		"salidas":[
+			{		
 			"cuartoId":0,
 			"minLong":0.70,
 			"maxLong":1.01,
@@ -139,6 +149,21 @@ const cuartos = [
 			"maxLat":0.11,
 			},
 		]
+	}
+}
+const cuartos = [
+	{
+		"id":0,
+		"url":"https://www.luofluck.tech/360/1.jpg",
+		"modelos":modelos.room1.objetos,
+		"salidas":modelos.room1.salidas,
+
+	},
+	{
+		"id":1,
+		"url":"https://www.luofluck.tech/360/2.jpg",
+		"modelos":modelos.room2.objetos,
+		"salidas":modelos.room2.salidas
 	}
 ]
 
@@ -167,6 +192,7 @@ class ViewerConstructor{
 				mousemove: true,
 				mousewheel: true,
 				navbar: null,
+				
 			});
 			this.viewerClic();
 			this.viewerExit();
@@ -225,15 +251,17 @@ class ViewerConstructor{
 		    this.latitude = data.latitude;
 			this.modelosObj.forEach((element)=>{
 				if(this.viewerlogAndLatVal(element)) this.viewerFocus(this.longitude, this.latitude, element);
-		  })	
-		  this.modelosDir.forEach((element)=>{
+		  	})	
+		  	this.modelosDir.forEach((element)=>{
 				if(this.viewerlogAndLatVal(element)){
 					console.log(cuartos[element.cuartoId])
-					this.viewer.destroy()
+					//this.viewer.destroy()
 					const sala = new ViewerConstructor(cuartos[element.cuartoId])
+					/*this.viewer.setPanorama('https://www.luofluck.tech/360/2.jpg').then(() => 
+						console.log('vista cambiada')
+					);*/
 				}
-		  })
-
+		  	})
 		});
 	}
 	viewerlogAndLatVal(element){
