@@ -4,8 +4,8 @@ const boxEnd = document.getElementById("button--end")
 const boxCartel = document.getElementById("box--cartel")
 var boxTitulo = boxCartel.querySelector(".box__header__h3")
 var boxDescripcion = boxCartel.querySelector(".box__body__p")
-var boxFooter = boxCartel.querySelector(".box__footer__p")
 var lugar = document.querySelector('#viewer');
+var iframe = document.querySelector('#iframe');
 
 const modelos = {
 	"room1":{
@@ -18,7 +18,7 @@ const modelos = {
 					mira esta tremenda es de colores y tiene waifai incluido
 
 					`,
-				"footer":"infografia oficial: www.telesmart.com",
+				"url":"https://www.youtube.com/embed/2ajWUp8F694?si=XEYk7BVDaDiQmnAD",
 				"minLong":6.19,
 				"maxLong":0.17,
 				"minLat":-0.19,
@@ -33,7 +33,7 @@ const modelos = {
 					comer es eso que hace feliz a la gente
 					Se feliz :)
 				`,
-				"footer":"infografia oficial: www.cosinaperrona.com",
+				"url":"",
 				"minLong":1.51,
 				"maxLong":1.89,
 				"minLat":-0.56,
@@ -49,7 +49,7 @@ const modelos = {
 
 					no me compres obteneme bv
 				`,
-				"footer":"infografia oficial: www.pornhub.com",
+				"url":"https://www.youtube.com/embed/2ajWUp8F694?si=XEYk7BVDaDiQmnAD",
 				"minLong":3.40, 
 				"maxLong":3.97,
 				"minLat":-0.95,
@@ -64,7 +64,7 @@ const modelos = {
 					bueno eso tkm, tengo que rellenar mas texto asi que bueno voy a escribir algo mas
 					tambien puedo decir que la vida no es tan mala
 				`,
-				"footer":"infografia oficial: www.luofluck.tech",
+				"url":"https://www.youtube.com/embed/2ajWUp8F694?si=XEYk7BVDaDiQmnAD",
 				"minLong":4.69, 
 				"maxLong":4.99,
 				"minLat":-0.56,
@@ -78,7 +78,7 @@ const modelos = {
 					lo mismo, la ventana es corredisa, tiene una cortina para que no te vean los vecinos
 					y especial para mirar durante las crisis existenciales
 				`,
-				"footer":"infografia oficial: www.mequieromorir.com",
+				"url":"https://www.youtube.com/embed/2ajWUp8F694?si=XEYk7BVDaDiQmnAD",
 				"minLong":4.45, 
 				"maxLong":5.11,
 				"minLat":-0.34,
@@ -92,7 +92,7 @@ const modelos = {
 					¡pero ey!
 					En el titulo dice inteligente, onda debe ser mejor 
 				`,
-				"footer":"infografia oficial: www.inteligenteesnoenamorarse.com",
+				"url":"https://www.youtube.com/embed/2ajWUp8F694?si=XEYk7BVDaDiQmnAD",
 				"minLong":0.94, 
 				"maxLong":1.45,
 				"minLat":-0.55,
@@ -107,6 +107,7 @@ const modelos = {
 					Come estos limones y ella te va a amar...
 
 				`,
+				"url":"https://www.youtube.com/embed/2ajWUp8F694?si=XEYk7BVDaDiQmnAD",
 				"minLong":2.78, 
 				"maxLong":3.11,
 				"minLat":-0.91,
@@ -133,7 +134,7 @@ const modelos = {
 					mira esta tremenda es de colores y tiene waifai incluido
 
 					`,
-				"footer":"infografia oficial: www.reloj.com",
+				"url":"",
 				"minLong":5,
 				"maxLong":0.4,
 				"minLat":-0.06,
@@ -238,11 +239,17 @@ class ViewerConstructor{
 		    }
 	  	});
 		boxEnd.classList.add('button--end--active');
-		boxCartel.classList.add('box--active')
+		boxCartel.classList.add('box--active');
 
 		boxTitulo.innerText = element.titulo;
 		boxDescripcion.innerText = element.descripcion;
-		boxFooter.innerText = element.footer;
+		
+		if(element.url!=""){
+			iframe.src = element.url;
+			iframe.classList.add('box__body__iframe--active');
+		}else{
+			iframe.classList.remove('box__body__iframe--active');
+		}
 	}
 	viewerClic(){
 		this.viewer.on('click', (e, data) => {
