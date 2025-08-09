@@ -272,7 +272,7 @@ class ViewerConstructor{
 		let maxLat = element["maxLat"]
 		let log = (maxLong < minLong)? maxLong > this.longitude  || minLong < this.longitude: maxLong > this.longitude && minLong < this.longitude;
 		let lat = maxLat > this.latitude && minLat < this.latitude;
-		return (log && lat) ? true : false
+		return (log && lat) 
 	}
 	viewerExit(){
 		boxEnd.addEventListener("click", ()=> this.viewerNormalize()) 
@@ -311,4 +311,19 @@ main()
 				aprendes a besar no viene mal
 
 				eso vamos a hacerlo un meme despues. FIN
+
+
+
+                10/8/25
+				Ola lu del pasado, temo decirte que retomamos el proyecto, y esta ves apostamos en el. Dejaste de programar mucho tiempo (eso fue triste)
+				Pero quien soy yo para juzgarme, pasaron y viviste muchas cosas, fuiste tio devuelta por tu mejor amigo, y ahora vas a volver a serlo
+			    pero por tu mejor amiga, en fin... ahora entrenas y lo de aprender a besar capaz te lo sigo debiendo jaja, como dato de color, fue dificil
+			    pero si entendi lo que hiciste, capaz en un plano carteciano de x e y se explica mejor.
+
+
+			    todo es curioso, obvio perdimos gente pero si, te rodeas de personas geniales, eso no se duda, te sorprenderia saber a quienes conocimos por el camino
+			    mucha gente nos ayudo y ayuda muchisimo, espero que la proxima ves que escribas aca es porque la pegamos con este proyecto, nada de mediocridades
+			    no vuelvas hasta decir que la pegamos,sino no te quiero ver.
+
+			    en fin,nos vemos luego, cuidate. FIN (sigueremos conociendo personas interesante sin perder a las que tenemos)
 */

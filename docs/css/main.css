@@ -22,6 +22,46 @@ body{
   font-optical-sizing: auto;
   font-style: normal;
 }
+.footer{
+	display: flex;
+	align-items: center;
+  width: 100vw;
+	position: fixed;
+	bottom: 1px;
+  background-color: rgba(15, 15, 15, .3);
+	font-size: 15px;
+	margin: auto auto;
+	padding: 5px 5px;
+	z-index: 999;
+}
+.footer__redes{
+	display: flex;
+	align-items: center;
+  justify-content: center;
+	width: 30%;
+	margin-left: auto;
+}
+.footer__redes a{
+	margin: auto;
+	color: white;
+	transition: linear .3;
+}
+.footer__redes .fa-facebook-square:hover,
+.footer__redes .fa-twitter:hover{
+	color: #007bff;
+}
+.footer__redes .fa-instagram:hover{
+    color:  #ffc107;
+}
+.footer__link{
+	color: rgb(241,241, 241);
+
+}
+.footer__link a{
+	color: rgb(221,221, 221);
+
+
+}
 .image-1{
 	position: absolute;
 	transition: 1s linear;
