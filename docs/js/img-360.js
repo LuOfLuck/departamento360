@@ -1,3 +1,4 @@
+import { Viewer } from 'https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.module.js';
 const buttonNavegar = document.getElementById("button--navegar")
 const buttonTop = document.getElementById("button--top")
 const boxEnd = document.getElementById("button--end")
@@ -6,7 +7,7 @@ var boxTitulo = boxCartel.querySelector(".box__header__h3")
 var boxDescripcion = boxCartel.querySelector(".box__body__p")
 var lugar = document.querySelector('#viewer');
 var iframe = document.querySelector('#iframe');
-
+console.log(Viewer)
 const modelos = {
 	"room1":{
 		"objetos":[
@@ -37,7 +38,7 @@ const modelos = {
 				"minLong":1.51,
 				"maxLong":1.89,
 				"minLat":-0.56,
-				"maxLat":-0.06,
+				"maxLat":-0,
 			},	
 			{
 				"titulo":"cocina electrica",
@@ -168,76 +169,70 @@ const cuartos = [
 	}
 ]
 
-
 class ViewerConstructor{
 	constructor(modelosObj) {
 		this.cuartos = cuartos;
-	    this.viewerUrl = modelosObj.url;
-	    this.modelosObj = modelosObj.modelos;
-	    this.modelosDir = modelosObj.salidas;
-	    this.boxEnd = boxEnd;
-	    this.viewer = this.createdViewer();
-	    this.longitude = null;
-		 this.latitude = null;
+	  this.viewerUrl = modelosObj.url;
+	  this.modelosObj = modelosObj.modelos;
+	  this.modelosDir = modelosObj.salidas;
+	  this.boxEnd = boxEnd;
+	  this.viewer = this.createdViewer();
+	  this.longitude = null;
+		this.latitude = null;
 	}
 	createdViewer(){
-		try{
-			
-			lugar.innerHTML = "";
-			this.viewer = new PhotoSphereViewer.Viewer({
+	//	try{
+			this.viewer = new Viewer({
 				container: lugar,
 				panorama: this.viewerUrl,
-				defaultLat: 0,
-				defaultLong: 0,
+				defaultYaw: 0,
+				defaultPitch: 0,
 				defaultZoomLvl: 0,
 				mousemove: true,
 				mousewheel: true,
 				navbar: null,
+				loadingTxt: "HOla",
 				
 			});
 			this.viewerClic();
 			this.viewerExit();
 			return this.viewer;
-		}
+	/*	}
 		catch{
 			return console.log("error");
 		}
-	}
+	}*/
+  }
 	viewerNormalize(){
 		buttonTop.style.display = 'block'
 		boxEnd.classList.remove("button--end--active");
 		boxCartel.classList.remove("box--active");
 		this.viewer.config.mousewheel = true;
 	 	this.viewer.config.mousemove = true;
-	 	new PhotoSphereViewer.utils.Animation({
-	  	properties: {
-	      zoom: { start: 75, end: 0 },
-	    },
-	    duration: 1000,
-	    onTick: (properties) => {
-	      this.viewer.zoom(properties.zoom);
-	    }
-	  });
+		this.viewer.animate({
+			    zoom: 0,
+			    speed: '2rpm',
+			})
 	}
 	viewerFocus(longitude, latitude, element){
+		console.log("focus")
 		buttonTop.style.display = 'none'
 		this.viewer.config.mousewheel = false;
 		this.viewer.config.mousemove = false;
 	 	this.viewer.renderer.camera.far *= 2;
 		let ob = this.viewer.getPosition()
 		console.log("llego aqui")
-		new PhotoSphereViewer.utils.Animation({
-		    properties: {
-		     	lat: { start: ob.latitude, end: latitude },
-		     	long: { start: ob.longitude, end: longitude },
-		     	zoom: { start: this.viewer.getZoomLevel(), end: 75 },
-		    },
-		    duration: 1000,
-		    onTick: (properties) => {
-		     	this.viewer.rotate({ longitude: properties.long, latitude: properties.lat });
-		     	this.viewer.zoom(properties.zoom);
-		    }
-	  	});
+		this.viewer.animate({
+		    yaw: ob.yaw,
+		    pitch: ob.pitch,
+		    zoom: 75,
+		    speed: '2rpm',
+		})
+		this.viewer.rotate({
+		    textureX: ob.yaw,
+		    textureY: ob.pitch,
+		});
+	
 		boxEnd.classList.add('button--end--active');
 		boxCartel.classList.add('box--active');
 
@@ -252,21 +247,29 @@ class ViewerConstructor{
 		}
 	}
 	viewerClic(){
-		this.viewer.on('click', (e, data) => {
-			console.log(`${data.rightclick?'right ':''}clicked at longitude: ${data.longitude} latitude: ${data.latitude}`);
-		 	this.longitude = data.longitude;
-		    this.latitude = data.latitude;
+		console.log(this.viewer.getPosition())
+		this.viewer.addEventListener('click', ({ data }) => {
+			console.log(`${data.rightclick ? 'right ' : ''}clicked at yaw: ${data.yaw} pitch: ${data.pitch}`);
+			this.longitude =data.yaw;
+		  this.latitude = data.pitch;
 			this.modelosObj.forEach((element)=>{
 				if(this.viewerlogAndLatVal(element)) this.viewerFocus(this.longitude, this.latitude, element);
+		  		console.log("funcion")
 		  	})	
 		  	this.modelosDir.forEach((element)=>{
 				if(this.viewerlogAndLatVal(element)){
 					console.log(cuartos[element.cuartoId])
-					//this.viewer.destroy()
-					const sala = new ViewerConstructor(cuartos[element.cuartoId])
-					/*this.viewer.setPanorama('https://www.luofluck.tech/360/2.jpg').then(() => 
-						console.log('vista cambiada')
-					);*/
+						let cuarto = cuartos[element.cuartoId];
+					  this.viewer.setPanorama(cuarto.url, {
+						    caption: 'The new caption',
+						    position: { yaw: 0, pitch: 0 },
+						    transition: {
+						        rotation: false,
+						        effect: 'black',
+						    },
+						});
+					  this.modelosObj = cuarto.modelos;
+					  this.modelosDir = cuarto.salidas;
 				}
 		  	})
 		});
@@ -285,15 +288,18 @@ class ViewerConstructor{
 		boxEnd.addEventListener("click", ()=> this.viewerNormalize()) 
 		//ola
 	}
+	ViewerActu(){
+
+	}
 }
 const main = ()=>{
 	const vistaPrinc = new ViewerConstructor(cuartos[0])
 }
 main()
-    buttonNavegar.addEventListener("click",e=>{
-	    lugar.classList.add("image--mostrar");
-    });
-    buttonTop.addEventListener("click",e=>{
+buttonNavegar.addEventListener("click",e=>{
+	lugar.classList.add("image--mostrar");
+});
+buttonTop.addEventListener("click",e=>{
 	lugar.classList.remove("image--mostrar");
 })
 /*
