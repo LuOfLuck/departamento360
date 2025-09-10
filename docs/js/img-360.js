@@ -1,4 +1,6 @@
 import { Viewer } from 'https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.module.js';
+import { MarkersPlugin } from 'https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/markers-plugin/index.module.js';
+console.log(MarkersPlugin)
 const buttonNavegar = document.getElementById("button--navegar")
 const buttonTop = document.getElementById("button--top")
 const boxEnd = document.getElementById("button--end")
@@ -192,16 +194,28 @@ class ViewerConstructor{
 				mousewheel: true,
 				navbar: null,
 				loadingTxt: "HOla",
-				
+				plugins: [
+        	MarkersPlugin.withConfig({
+            markers: [
+              {
+                id: 'image',
+                position: { yaw: 0.32, pitch: 0.11 },
+	              image: "../img/x.jpg",
+	              size: { width: 32, height: 32 },
+	            },
+						],
+					}),
+        ],
 			});
 			this.viewerClic();
 			this.viewerExit();
+
+
 			return this.viewer;
 	/*	}
 		catch{
 			return console.log("error");
-		}
-	}*/
+		}}*/
   }
 	viewerNormalize(){
 		buttonTop.style.display = 'block'
