@@ -182,9 +182,7 @@ class ViewerConstructor{
 		 this.latitude = null;
 	}
 	createdViewer(){
-		try{
-			
-			lugar.innerHTML = "";
+		lugar.innerHTML = "";
 			this.viewer = new PhotoSphereViewer.Viewer({
 				container: lugar,
 				panorama: this.viewerUrl,
@@ -197,10 +195,16 @@ class ViewerConstructor{
 				loadingTxt: "NEXT",
 				
 			});
+			console.log(this.viewer)
 			this.viewerClic();
 			this.viewerExit();
 			this.viewerMouse();
+			let punto = this.viewer.point(0,0)
+			console.log(punto)
 			return this.viewer;
+		try{
+			
+
 		}
 		catch{
 			return console.log("error");
@@ -228,6 +232,7 @@ class ViewerConstructor{
 		this.viewer.config.mousemove = false;
 	 	this.viewer.renderer.camera.far *= 2;
 		let ob = this.viewer.getPosition()
+		new PhotoSphereViewer.utils.distance()
 		console.log("llego aqui")
 		new PhotoSphereViewer.utils.Animation({
 		    properties: {
@@ -256,18 +261,17 @@ class ViewerConstructor{
 	}
 	viewerClic(){
 		this.viewer.on('click', (e, data) => {
+			console.log(data)
 			let ob = this.viewer.getPosition()
 			latDef.innerText=`
-			    Vista:
-			        x: ${ob.longitude} 
-			        y: ${ob.latitude}
 			    click:
 			    x: ${data.longitude} 
 			    y: ${data.latitude}
+			    pantalla:
+			    x: ${data.viewerX}
+			    y: ${data.viewerY}
 			`
-		    console.log("clic: ", ob);
-			console.log(`${data.rightclick?'right ':''}clicked at longitude: ${data.longitude} latitude: ${data.latitude}`);
-		 	this.longitude = data.longitude;
+		    this.longitude = data.longitude;
 		    this.latitude = data.latitude;
 			this.modelosObj.forEach((element)=>{
 				if(this.viewerlogAndLatVal(element)) this.viewerFocus(this.longitude, this.latitude, element);
@@ -285,8 +289,9 @@ class ViewerConstructor{
 		});
 	}
 	viewerMouse(){
-
+ 		
 		this.viewer.on('position-updated', (e, data) => {
+			console.log(data)
   			let ob = this.viewer.getPosition()
 			latDef.innerText=`
 			    Vista:

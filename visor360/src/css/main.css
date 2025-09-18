@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+:root{
+	--white: #FFFFFF;
+	--white-baner: rgba(245,245,245,.9);
+	--orange: #F5BA48;
+	--green: #4BF548;
+	--black:  rgb(2,2,21);
+}
+*{
+	margin: 0;
+	padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+body{
+	background-color: black;
+	overflow-x: hidden;
+	max-width: 100vw;
+	min-height: 100vh;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+.footer{
+	display: flex;
+	align-items: center;
+	width:100%;
+	position: fixed;
+	bottom: 1px;
+  background-color: rgba(15, 15, 15, .3);
+	font-size: 15px;
+	margin: auto auto;
+	padding: 5px 5px;
+	z-index: 999;
+}
+.footer__redes{
+	display: flex;
+	align-items: center;
+  justify-content: center;
+	width: 30%;
+	margin-left: auto;
+}
+.footer__redes a{
+	margin: auto;
+	color: white;
+	transition: linear .3;
+}
+.footer__redes .fa-facebook-square:hover,
+.footer__redes .fa-twitter:hover{
+	color: #007bff;
+}
+.footer__redes .fa-instagram:hover{
+    color:  #ffc107;
+}
+.footer__link{
+	color: rgb(241,241, 241);
+
+}
+.footer__link a{
+	color: rgb(221,221, 221);
+
+
+}
+.image-1{
+	position: absolute;
+	transition: 1s linear;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	display: block;
+	cursor: pointer;
+	z-index: -100;
+}
+.image--mostrar{
+	top: 0;
+	z-index: 100;
+}
+.a{
+	display: inline-block;
+	width: auto;
+	text-decoration: none;
+	margin: auto auto;
+}
+.banner{
+	display: flex;
+  align-items: center;
+  justify-content: center;
+	width: 100vw;
+	height: 100vh;
+	background-color: var(--white);
+	background-position: center;
+  background-repeat: no-repeat;
+ 	background-size: cover;
+}
+.banner__center{
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+}
+.banner__center__h1{
+	text-align: center;
+}
+
+.button{
+	width: 100px;
+	height: 20vh;
+	width: 20vh;
+	text-shadow: 1px 1px 2px white;
+	border: 5px solid rgba(15, 15, 15, .5);
+	position: relative;
+	border-radius: 50%;
+	background: transparent;
+	cursor: pointer;
+	color: rgba(15, 15, 15, .5);
+	font-weight: 900;
+	transition: .5s;
+	z-index: 15;
+}
+.button .button__pos{
+	height: 100%;
+	width: 100%;
+	border-radius: 50%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: -1;
+	transition: .5s;
+
+}
+.button__center{
+	background-color: red;
+	height: 100%;
+	width: 100%;
+}
+.button:hover{
+	color: white;
+	border: none;
+}
+.button:hover .button__pos{
+	height: 0vh;
+	width: 0vh;
+	border: 10vh solid rgba(15, 15, 15, .5);
+
+}
+
+.button--end{
+	height: 5vh;
+	width: 5vh;
+	position: absolute;
+	top: -25px;
+	right: -25px;
+	z-index: 1000;
+	display: none;
+	margin: 3px;
+	color: var(--white);
+	font-weight: 600;
+	border: 0px solid rgba(255, 255, 255, .2);
+	border-radius: 50%;
+	background-color: rgba(255, 255, 255, .2);
+	transition: .3s linear;
+}
+.button--end:hover{
+	background-color: rgba(255, 255, 255, .1);
+	color: var(--white);
+	cursor: pointer;
+}
+.button--end--active{
+	display: block;
+}
+
+.button--subir{
+	display: none;
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+}
+
+
+.box{
+	display: flex;
+	flex-direction: column;
+	margin: auto 50px auto auto;
+	width: 30vw;
+	height: auto;
+	position: fixed;
+	top: 15vh;
+	right: 40px;
+	color:  white;
+	font-weight: 800;
+	opacity: 0;
+	z-index: -1;
+	transition: 2s;
+	font-size: 16px;
+	
+
+}
+.box__header, .box__body, .box__footer{
+	text-shadow: 1px 1px 2px rgba(25, 25, 25, .9);
+	margin: 15px 5px;
+	background-color: rgba(255, 255, 255, .2);
+}
+.box__header{
+}
+.box__header__h3{
+	font-size: 2em;
+	margin: 15px 5px;
+	text-align: center;
+}
+.box__body{
+
+}
+.box__body__iframe{
+	display: none;
+	align-items: center;
+  justify-content: center;
+	margin: auto;
+	margin-bottom: 15px;
+	width: 85%;
+}
+.box__body__iframe--active{
+	display: flex;
+}
+.box__body__p{
+	padding: 15px 25px;
+	margin: 15px 5px;
+}
+.box--active{
+	opacity: 1;
+	z-index: 210;
+}
+@media(max-width:768px){	
+	.banner__center{
+		font-size: 26px;
+	}
+	.box{
+		width: 35vw;
+		top: 10vh;
+		right: 20px;
+		font-size: 13px;
+	}
+}
+@media(max-width:568px){
+	.banner__center{
+		font-size: 20px;
+	}
+	.box{
+		width: 70vw;
+		top: 15vh;
+		left: 15vw;
+		font-size: 14px;
+	}
+	.footer{
+		height: 53px;
+	}
+}
