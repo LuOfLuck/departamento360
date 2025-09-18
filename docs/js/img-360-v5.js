@@ -257,7 +257,14 @@ class ViewerConstructor{
 	viewerClic(){
 		this.viewer.on('click', (e, data) => {
 			let ob = this.viewer.getPosition()
-			latDef.innerText="Vista-log: (" + ob.longitude + ") - vista-lat: (" + ob.latitude + ") - click-log: (" + data.longitude + ") - click lat: (" + data.latitude +")"
+			latDef.innerText=`
+			    Vista:
+			        x: ${ob.longitude} 
+			        y: ${ob.latitude}
+			    click:
+			    x: ${data.longitude} 
+			    y: ${data.latitude}
+			`
 		    console.log("clic: ", ob);
 			console.log(`${data.rightclick?'right ':''}clicked at longitude: ${data.longitude} latitude: ${data.latitude}`);
 		 	this.longitude = data.longitude;
@@ -281,7 +288,14 @@ class ViewerConstructor{
 
 		this.viewer.on('position-updated', (e, data) => {
   			let ob = this.viewer.getPosition()
-			latDef.innerText="Vista-log: (" + ob.longitude + ") - vista-lat: (" + ob.latitude + ") - click-log: (" + data.longitude + ") - click lat: (" + data.latitude +")"
+			latDef.innerText=`
+			    Vista:
+			        x: ${ob.longitude} 
+			        y: ${ob.latitude}
+			    click:
+			    x: ${data.longitude} 
+			    y: ${data.latitude}
+			`
 			console.log("clic: ", ob);
 		})
 	}
