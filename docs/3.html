@@ -1,95 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Custom hot spots</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">    
+  <meta name="description" content="Sala de departamento en 360, recorrido interno frente a sus direcciones">
+  <meta name="keywords" content="Lu_Of_Luck, LuOfLuck, Guerrero Lucas, developer Full-Stack, Fullstack, developer Front-End, developer Back-End, developer django, developer bootstrap"/>
+  <meta name="author" content="Guerrero Lucas" />
+  <meta name="copyright" content="Guerrero Lucas"/>
+   <link rel="shortcut icon" href="https://www.luofluck.tech/assets/favicon.ico" type="image/x-icon">
+     <link rel="stylesheet" href="css/2.css">
+    <title>VIAR</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
     <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 
-    <style>
-    #panorama {
-        width: 600px;
-        height: 400px;
-    }
-    .custom-hotspot {
-        height: 50px;
-        width: 50px;
-        background: #f00;
-    }
-    div.custom-tooltip span {
-        visibility: hidden;
-        position: absolute;
-        border-radius: 3px;
-        background-color: #fff;
-        color: #000;
-        text-align: center;
-        max-width: 200px;
-        padding: 5px 10px;
-        margin-left: -220px;
-        cursor: default;
-    }
-    div.custom-tooltip:hover span{
-        visibility: visible;
-    }
-    div.custom-tooltip:hover span:after {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 0;
-        border-width: 10px;
-        border-style: solid;
-        border-color: #fff transparent transparent transparent;
-        bottom: -20px;
-        left: -10px;
-        margin: 0 50%;
-    }
-    </style>
+
 </head>
 <body>
+<div id="app">
+    
+  
+    <div class="imagenes">
+        <div id="panorama" class="image-1 "></div>
+        <a id="button--top" href="#app"><button class="button imagenes__button button--subir">Subir</button>
+    <div class="button__center"></div>
+        </a>
 
-<div id="panorama"></div>
+    </div>
+  
+    <div id="box--cartel"class="box box--cartel ">
+            <div class="box__header">
+                <h3 class="box__header__h3">TITULO</h3>
+            </div>
+            <div class="box__body">
+                <p class="box__body__p">
+                    DESCRIPCION
+                </p>
+            </div>
+            <button id="button--end" class=" imagenes__button button--end button--end--active">x</button>   
+    </div>
 
-<script>
-// Create viewer
-viewer = pannellum.viewer('panorama', ﻿{
-    "type": "equirectangular",
-    "panorama": "https://www.luofluck.tech/360/1.jpg",
-    "hotSpots": [
-        {
-            "pitch": 14.1,
-            "yaw": 1.5,
-            "cssClass": "custom-hotspot",
-            "createTooltipFunc": hotspot,
-            "createTooltipArgs": "Baltimore Museum of Art"
-        },
-        {
-            "pitch": -9.4,
-            "yaw": 222.6,
-            "cssClass": "custom-hotspot",
-            "createTooltipFunc": hotspot,
-            "createTooltipArgs": "Art Museum Drive"
-        },
-        {
-            "pitch": -0.9,
-            "yaw": 144.4,
-            "cssClass": "custom-hotspot",
-            "createTooltipFunc": hotspot,
-            "createTooltipArgs": "North Charles Street"
-        }
-    ]
-});
+</div>
+<footer class="footer">
+    <div class="footer__link">
+                <span>Todos los derechos reservados: </span><span>@LuOfLuck</span>
+                <a href="https://www.LuOfLuck.tech" rel="Pagina del autor" class="d-block" target="_BLANK"> 
+                    <span>Todos los derechos reservados: </span>
+                </a>
+        
+         <span id="lat"></span>
+    </div>
+    <div class="footer__redes">
 
-// Hot spot creation function
-function hotspot(hotSpotDiv, args) {
-    hotSpotDiv.classList.add('custom-tooltip');
-    var span = document.createElement('span');
-    span.innerHTML = args;
-    hotSpotDiv.appendChild(span);
-    span.style.width = span.scrollWidth - 20 + 'px';
-    span.style.marginLeft = -(span.scrollWidth - hotSpotDiv.offsetWidth) / 2 + 'px';
-    span.style.marginTop = -span.scrollHeight - 12 + 'px';
-}
+    <a href="https://www.facebook.com/lu.de.luck/" rel="Facebook del autor" class="d-block" target="_BLANK"><i class="fab fa-facebook-square"></i>
+    <a href="https://www.instagram.com/viar.360/" rel="instagram del proyecto" class="d-block" target="_BLANK"><i class="fab fa-instagram"></i></a>
+    <a href="https://twitter.com/Lu_Of_Luck" rel="Twitter del autor" class="d-block" target="_BLANK"> <i class="fab fa-twitter "></i></a>
+  </div>
+</footer>
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+<script src="js/2.js">
 </script>
+</html>
+
 
 </body>
 </html>

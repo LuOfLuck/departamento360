@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+:root{
+    --white: #FFFFFF;
+    --white-baner: rgba(245,245,245,.9);
+    --orange: #F5BA48;
+    --green: #4BF548;
+    --black:  rgb(2,2,21);
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+body{
+    background-color: black;
+    overflow-x: hidden;
+    max-width: 100vw;
+    min-height: 100vh;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+.footer{
+    display: flex;
+    align-items: center;
+    width:100%;
+    position: fixed;
+    bottom: 1px;
+  background-color: rgba(15, 15, 15, .3);
+    font-size: 15px;
+    margin: auto auto;
+    padding: 5px 5px;
+    z-index: 999;
+}
+.footer__redes{
+    display: flex;
+    align-items: center;
+  justify-content: center;
+    width: 30%;
+    margin-left: auto;
+}
+.footer__redes a{
+    margin: auto;
+    color: white;
+    transition: linear .3;
+}
+.footer__redes .fa-facebook-square:hover,
+.footer__redes .fa-twitter:hover{
+    color: #007bff;
+}
+.footer__redes .fa-instagram:hover{
+    color:  #ffc107;
+}
+.footer__link{
+    color: rgb(241,241, 241);
+
+}
+.footer__link a{
+    color: rgb(221,221, 221);
+
+
+}
+ #panorama {
+        width: 100vw;
+        height: 100vh;
+    }
+    .custom-hotspot {
+        height: 50px;
+        width: 50px;
+        background: #f00;
+    }
+    div.custom-tooltip span {
+        visibility: hidden;
+        position: absolute;
+        border-radius: 3px;
+        background-color: #fff;
+        color: #000;
+        text-align: center;
+        max-width: 200px;
+        padding: 5px 10px;
+        margin-left: -220px;
+        cursor: default;
+    }
+    div.custom-tooltip:hover span{
+        visibility: visible;
+    }
+    div.custom-tooltip:hover span:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-width: 10px;
+        border-style: solid;
+        border-color: #fff transparent transparent transparent;
+        bottom: -20px;
+        left: -10px;
+        margin: 0 50%;
+    }
