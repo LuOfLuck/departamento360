@@ -178,8 +178,6 @@ class ViewerConstructor{
 	    this.modelosDir = modelosObj.salidas;
 	    this.boxEnd = boxEnd;
 	    this.viewer = this.createdViewer();
-	    this.longitude = null;
-		 this.latitude = null;
 	}
 	createdViewer(){
 		lugar.innerHTML = "";
