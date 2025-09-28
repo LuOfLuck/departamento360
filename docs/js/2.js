@@ -1,6 +1,5 @@
 const boxEnd = document.getElementById("button--end")
 const boxCartel = document.getElementById("box--cartel")
-const buttonTop = document.getElementById("button--top")
 const panorama = document.getElementById("panorama")
 const consejo = document.getElementById("consejo__span")
 var boxTitulo = boxCartel.querySelector(".box__header__h3")
@@ -240,8 +239,10 @@ class ViewerConstructor{
     }
 
     viewerNormalize(){
-        document.querySelectorAll(".custom-hotspot--desactive").forEach(el => el.classList.remove("custom-hotspot--desactive"));
-        buttonTop.style.display = 'block'
+        document.querySelectorAll(".custom-hotspot--desactive").forEach(e => {
+            if(e){e.classList.remove("custom-hotspot--desactive")}
+        });
+        //buttonTop.style.display = 'block'
         boxEnd.classList.remove("button--end--active");
         boxCartel.classList.remove("box--active");
         let pitch = vistaPrinc.viewer.getPitch(); 
@@ -279,8 +280,9 @@ function hotspot(hotSpotDiv, args) {
     hotSpotDiv.classList.add('custom-tooltip');
     hotSpotDiv.appendChild(pulse)
     hotSpotDiv.addEventListener("click", (event) => {
-        vistaPrinc.viewerFocus(args);
         hotSpotDiv.classList.add('custom-hotspot--desactive');
+        vistaPrinc.viewerFocus(args);
+        
     });
 }
 
