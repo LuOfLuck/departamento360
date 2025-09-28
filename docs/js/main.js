@@ -206,7 +206,6 @@ class ViewerConstructor{
   
         }, 400);
     }
-
     hideLoading() {
         progressBar.style.width = "100%";
         progressText.textContent = "100%";
@@ -215,14 +214,12 @@ class ViewerConstructor{
             loadingEl.classList.add("hidden");
         }, 300);
     }
-
     viewerClic(){
         this.viewer.on("mousedown", (event) => {
             const coords = this.viewer.mouseEventToCoords(event);
             console.log(`Click detectado en -> Pitch: ${coords[0]}, Yaw: ${coords[1]}`);
         });
     }
-
     viewerFocus(args){
         this.viewer.lookAt(args.pitch, args.yaw, 20, 2500);
         boxEnd.classList.add('button--end--active');
@@ -237,7 +234,6 @@ class ViewerConstructor{
             iframe.classList.remove('box__body__iframe--active');
         }
     }
-
     viewerNormalize(){
         document.querySelectorAll(".custom-hotspot--desactive").forEach(e => {
             if(e){e.classList.remove("custom-hotspot--desactive")}
@@ -249,21 +245,26 @@ class ViewerConstructor{
         let yaw   = vistaPrinc.viewer.getYaw();   
         this.viewer.lookAt(pitch, yaw, 120, 2500);
     }
-
     viewerExit(){
         boxEnd.addEventListener("click", ()=> this.viewerNormalize()) 
     }
-
     loadViewer(){
         this.showLoading("Cargando escena...");
         this.simulateProgress();
-}
+    }
     changeEscena(){
         this.viewer.on("scenechange",(sceneId)=>{
             console.log("Cambiando a escena:", sceneId);;
             this.simulateProgress();
         })
     }
+    actualizarPantalla(){
+        window.addEventListener("resize", () => {
+            alert("cambio de pantalla")
+            this.viewer.resize();
+        });
+    }
+
 }
 
 let vistaPrinc;
