@@ -2,9 +2,9 @@ const boxEnd = document.getElementById("button--end")
 const boxCartel = document.getElementById("box--cartel")
 const buttonTop = document.getElementById("button--top")
 const panorama = document.getElementById("panorama")
+const consejo = document.getElementById("consejo__span")
 var boxTitulo = boxCartel.querySelector(".box__header__h3")
 var boxDescripcion = boxCartel.querySelector(".box__body__p")
-
 var loadingEl = document.getElementById('loading');
 var progressBar = document.getElementById('progressBar');
 var progressText = document.getElementById('progressText');
@@ -111,6 +111,21 @@ const cuartos = [
     }
 ]
 
+
+
+const tips = [
+  "Puedes desplazarte arrastrando con el dedo o el mouse",
+  "Haz zoom acercando o alejando con dos dedos o con la rueda del mouse",
+  "Toca los íconos brillantes (orbes) para descubrir información",
+  "Pulsa en las flechas de salida para cambiar de habitación",
+  "En pantallas táctiles, prueba girar el dispositivo para una experiencia más inmersiva",
+  "Algunos objetos contienen enlaces a videos o contenido extra",
+  "Toca el ícono de información para leer más detalles de la escena",
+];
+
+
+
+const consejos = ["Puedes "]
 class ViewerConstructor{
     constructor(modelos, cuartos) {
         this.cuartos = cuartos;
@@ -161,7 +176,6 @@ class ViewerConstructor{
         return v
     }
 
-    // ----------- NUEVO: pantalla de carga -----------
     showLoading(msg="Cargando panorama...") {
         progressBar.style.width = "0%";
         progressText.textContent = "0%";
@@ -173,21 +187,25 @@ class ViewerConstructor{
         this.carga=0
         progressBar.style.width = this.carga + "%";
         progressText.textContent = this.carga + "%";
+        let randomTip = tips[Math.floor(Math.random() * tips.length)];
+        consejo.textContent = randomTip;
+        const intervalConsejo = setInterval(() => {
+                let randomTip = tips[Math.floor(Math.random() * tips.length)];
+                consejo.textContent = randomTip;
+        }, 3000);
         const intervar = setInterval(() => {
             this.carga += Math.random() * 7;
             if (this.carga > 95) this.carga = 95;
             progressBar.style.width = Math.round(this.carga) + "%";
             progressText.textContent = Math.round(this.carga) + "%";
-            console.log("sigue Cargando")
-
             if (this.viewer.isLoaded()) {
                 clearInterval(intervar);
-                clearInterval(intervar);
+                clearInterval(intervalConsejo);
                 this.hideLoading();
             }
-        }, 400);
-        
+            
   
+        }, 400);
     }
 
     hideLoading() {
@@ -198,11 +216,6 @@ class ViewerConstructor{
             loadingEl.classList.add("hidden");
         }, 300);
     }
-
-    waitForLoaded() {
-        
-    }
-    // -----------------------------------------------
 
     viewerClic(){
         this.viewer.on("mousedown", (event) => {
@@ -227,14 +240,13 @@ class ViewerConstructor{
     }
 
     viewerNormalize(){
-        document.querySelectorAll(".custom-hotspot--desactive")
-            .forEach(el => el.classList.remove("custom-hotspot--desactive"));
+        document.querySelectorAll(".custom-hotspot--desactive").forEach(el => el.classList.remove("custom-hotspot--desactive"));
         buttonTop.style.display = 'block'
         boxEnd.classList.remove("button--end--active");
         boxCartel.classList.remove("box--active");
         let pitch = vistaPrinc.viewer.getPitch(); 
         let yaw   = vistaPrinc.viewer.getYaw();   
-        this.viewer.lookAt(pitch, yaw, 100, 2500);
+        this.viewer.lookAt(pitch, yaw, 120, 2500);
     }
 
     viewerExit(){
@@ -242,10 +254,9 @@ class ViewerConstructor{
     }
 
     loadViewer(){
-                 this.showLoading("Cargando escena...");
-            this.waitForLoaded();
-    }
-
+        this.showLoading("Cargando escena...");
+        this.simulateProgress();
+}
     changeEscena(){
         this.viewer.on("scenechange",(sceneId)=>{
             console.log("Cambiando a escena:", sceneId);;

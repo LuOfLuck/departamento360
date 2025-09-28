@@ -1,50 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">    
-  <meta name="description" content="Sala de departamento en 360, recorrido interno frente a sus direcciones">
-  <meta name="keywords" content="Lu_Of_Luck, LuOfLuck, Guerrero Lucas, developer Full-Stack, Fullstack, developer Front-End, developer Back-End, developer django, developer bootstrap"/>
-  <meta name="author" content="Guerrero Lucas" />
-  <meta name="copyright" content="Guerrero Lucas"/>
-   <link rel="shortcut icon" href="https://www.luofluck.tech/assets/favicon.ico" type="image/x-icon">
-     <link rel="stylesheet" href="css/2.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">    
+    <meta name="description" content="Sala de departamento en 360, recorrido interno frente a sus direcciones">
+    <meta name="keywords" content="Lu_Of_Luck, LuOfLuck, Guerrero Lucas, developer Full-Stack, Fullstack, developer Front-End, developer Back-End, developer django, developer bootstrap"/>
+    <meta name="author" content="Guerrero Lucas" />
+    <meta name="copyright" content="Guerrero Lucas"/>
+    <link rel="shortcut icon" href="https://www.luofluck.tech/assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/2.css">
     <title>VIAR</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
     <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
-
-
 </head>
 <body>
-<div id="app">
-    
-  
+<div id="app"> 
     <div class="imagenes">
-        <div id="panorama" class="paronama image-1 ">
-
-            
+        <div id="panorama" class="paronama image-1 ">   
             <div id="loading"  role="status" aria-live="polite">
                 <div class="loading-overlay">
                     <div class="logo">VIAR</div>
                         <div class="loader" aria-hidden="true"></div>
+
                         <div class="progress-wrap" aria-hidden="true">
+
                           <div id="progressBar" class="progress-bar"></div>
                         </div>
                     <div id="progressText" class="progress-text">0%</div>
+                     <p class="progress-text progress-text-consejo">Consejo: <span id="consejo__span"></span> </p>
               </div>
-              <div class="fondo"></div>
+              <div class="fondo"></div></div>            
             </div>
-                
-            </div>
-        
         </div>
-        <a id="button--top" href="#app"><button class="button imagenes__button button--subir">Subir</button>
-    <div class="utton__center"></div>
-        </a>
-
     </div>
-  
     <div id="box--cartel"class="box box--cartel">
             <div class="box__header ">
                 <h3 class="box__header__h3">TITULO</h3>
@@ -54,27 +43,29 @@
                     DESCRIPCION
                 </p>
             </div>
-             <iframe id="iframe" class="box__body__iframe " src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
-        
+            <iframe id="iframe" class="box__body__iframe " src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
             <button id="button--end" class=" imagenes__button button--end button--end--active">x</button>   
     </div>
-
 </div>
 <footer class="footer">
     <div class="footer__link">
-                <span>Todos los derechos reservados: </span>
-                <a href="https://www.LuOfLuck.tech" rel="Pagina del autor" class="d-block" target="_BLANK"> 
-                    <span>@LuOfLuck</span>
-                </a>
-        
+        <span>Todos los derechos reservados: </span>
+        <a href="https://www.LuOfLuck.tech" rel="Pagina del autor" class="d-block" target="_BLANK"> 
+            <span>@LuOfLuck</span>
+        </a>
          <span id="lat"></span>
     </div>
     <div class="footer__redes">
-
-    <a href="https://www.facebook.com/lu.de.luck/" rel="Facebook del autor" class="d-block" target="_BLANK"><i class="fab fa-facebook-square"></i>
-    <a href="https://www.instagram.com/viar.360/" rel="instagram del proyecto" class="d-block" target="_BLANK"><i class="fab fa-instagram"></i></a>
-    <a href="https://twitter.com/Lu_Of_Luck" rel="Twitter del autor" class="d-block" target="_BLANK"> <i class="fab fa-twitter "></i></a>
-  </div>
+        <a href="https://www.facebook.com/lu.de.luck/" rel="Facebook del autor" class="d-block" target="_BLANK">
+            <i class="fab fa-facebook-square"></i>
+        </a>
+        <a href="https://www.instagram.com/viar.360/" rel="instagram del proyecto" class="d-block" target="_BLANK">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://twitter.com/Lu_Of_Luck" rel="Twitter del autor" class="d-block" target="_BLANK">
+         <i class="fab fa-twitter "></i>
+        </a>
+    </div>
 </footer>
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 <script src="js/2.js">

@@ -424,7 +424,11 @@ body{
     font-size: 1.5rem;
     margin-top: 8px;
   }
-
+    .progress-text-consejo{
+        opacity: .9;
+        font-size: .8rem;
+        margin-top: 20px;
+    }
   /* Un pequeño logo opcional */
   .logo {
     color: #fff;
