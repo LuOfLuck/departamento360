@@ -1,9 +1,14 @@
 const boxEnd = document.getElementById("button--end")
 const boxCartel = document.getElementById("box--cartel")
 const buttonTop = document.getElementById("button--top")
+const panorama = document.getElementById("panorama")
 var boxTitulo = boxCartel.querySelector(".box__header__h3")
 var boxDescripcion = boxCartel.querySelector(".box__body__p")
 
+var loadingEl = document.getElementById('loading');
+var progressBar = document.getElementById('progressBar');
+var progressText = document.getElementById('progressText');
+var intervar;
 var iframe = document.querySelector('#iframe');
 //C:\Users\Lucas\AppData\Roaming\npm\http-server
 const modelos = {
@@ -106,18 +111,20 @@ const cuartos = [
     }
 ]
 
-
 class ViewerConstructor{
     constructor(modelos, cuartos) {
         this.cuartos = cuartos;
         this.modelos = modelos;
-       // this.boxEnd = boxEnd;
-        this.viewer  = pannellum.viewer('panorama',  this.createdViewer(this.modelos, this.cuartos))
+        this.viewer  = pannellum.viewer('panorama', this.createdViewer(this.modelos, this.cuartos))
+        this.carga = 0;
         this.viewerClic()
         this.viewerExit()
-
+        this.changeEscena()
+        this.intervar = null;
     }
+
     createdViewer(modelos, cuartos){
+        this.loadViewer()
         let v = {}
         let scenes={};
         v = {
@@ -127,8 +134,7 @@ class ViewerConstructor{
                 "autoLoad": true,
                 "showControls": false,
             },
-            "scenes": {
-            }
+            "scenes": { }
         }
 
         cuartos.forEach(function(element, index) {
@@ -145,7 +151,6 @@ class ViewerConstructor{
             element.modelos.forEach((e, i)=>{
                 e.createTooltipFunc = hotspot;
                 objetos.push(e)
-                
             })
             element.salidas.forEach((e, i)=>{
                 objetos.push(e)
@@ -156,18 +161,58 @@ class ViewerConstructor{
         return v
     }
 
+    // ----------- NUEVO: pantalla de carga -----------
+    showLoading(msg="Cargando panorama...") {
+        progressBar.style.width = "0%";
+        progressText.textContent = "0%";
+        this.simulateProgress();
+    }
+
+    simulateProgress() {
+        loadingEl.classList.remove("hidden");
+        this.carga=0
+        progressBar.style.width = this.carga + "%";
+        progressText.textContent = this.carga + "%";
+        const intervar = setInterval(() => {
+            this.carga += Math.random() * 7;
+            if (this.carga > 95) this.carga = 95;
+            progressBar.style.width = Math.round(this.carga) + "%";
+            progressText.textContent = Math.round(this.carga) + "%";
+            console.log("sigue Cargando")
+
+            if (this.viewer.isLoaded()) {
+                clearInterval(intervar);
+                clearInterval(intervar);
+                this.hideLoading();
+            }
+        }, 400);
+        
+  
+    }
+
+    hideLoading() {
+        progressBar.style.width = "100%";
+        progressText.textContent = "100%";
+        panorama.classList.add("cargado")
+        setTimeout(() => {
+            loadingEl.classList.add("hidden");
+        }, 300);
+    }
+
+    waitForLoaded() {
+        
+    }
+    // -----------------------------------------------
+
     viewerClic(){
         this.viewer.on("mousedown", (event) => {
-            console.log(event)
             const coords = this.viewer.mouseEventToCoords(event);
-            const pitch = coords[0];
-            const yaw = coords[1];
-            console.log(`Click detectado en -> Pitch: ${pitch}, Yaw: ${yaw}`);
+            console.log(`Click detectado en -> Pitch: ${coords[0]}, Yaw: ${coords[1]}`);
         });
     }
+
     viewerFocus(args){
         this.viewer.lookAt(args.pitch, args.yaw, 20, 2500);
-
         boxEnd.classList.add('button--end--active');
         boxCartel.classList.add('box--active');
         boxTitulo.innerText = args.titulo;
@@ -179,27 +224,36 @@ class ViewerConstructor{
         }else{
             iframe.classList.remove('box__body__iframe--active');
         }
-
     }
+
     viewerNormalize(){
-        let hotdiv = document.querySelectorAll(".custom-hotspot--desactive")
-        hotdiv.forEach(function (element) {
-            element.classList.remove("custom-hotspot--desactive")
-        });
+        document.querySelectorAll(".custom-hotspot--desactive")
+            .forEach(el => el.classList.remove("custom-hotspot--desactive"));
         buttonTop.style.display = 'block'
         boxEnd.classList.remove("button--end--active");
         boxCartel.classList.remove("box--active");
         let pitch = vistaPrinc.viewer.getPitch(); 
         let yaw   = vistaPrinc.viewer.getYaw();   
         this.viewer.lookAt(pitch, yaw, 100, 2500);
-
     }
+
     viewerExit(){
         boxEnd.addEventListener("click", ()=> this.viewerNormalize()) 
-        //ola
     }
 
+    loadViewer(){
+                 this.showLoading("Cargando escena...");
+            this.waitForLoaded();
+    }
+
+    changeEscena(){
+        this.viewer.on("scenechange",(sceneId)=>{
+            console.log("Cambiando a escena:", sceneId);;
+            this.simulateProgress();
+        })
+    }
 }
+
 let vistaPrinc;
 const main = ()=>{
     vistaPrinc = new ViewerConstructor(modelos, cuartos)
@@ -218,3 +272,4 @@ function hotspot(hotSpotDiv, args) {
         hotSpotDiv.classList.add('custom-hotspot--desactive');
     });
 }
+

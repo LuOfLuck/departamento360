@@ -65,7 +65,11 @@ body{
  #panorama {
         width: 100vw;
         height: 100vh;
+        z-index: -100;
     }
+.cargado{
+    z-index: 100 !important;
+}
 .custom-hotspot {
     display: block;
     height: 30px;
@@ -102,6 +106,7 @@ body{
     height: 20px;
 
 }
+
 
 
 .custom-exit::before{
@@ -350,3 +355,80 @@ body{
         height: 53px;
     }
 }
+
+
+.fondo{
+    background-image: url("fondo.png");
+    width: 100vw;
+    height: 100vh;
+    z-index: 50;
+}
+ .loading-overlay {
+    z-index: 100;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    backdrop-filter: blur(2px);
+    background: rgba(0,0,0,.4);
+    z-index: 1000;
+    transition: opacity 300ms ease, visibility 300ms;
+    pointer-events: auto; /* bloquea interacciones al viewer */
+  }
+
+ .hidden {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .loader {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 8px solid rgba(255,255,255,0.12);
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+    margin-bottom: 18px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-title {
+    color: #fff;
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .progress-wrap {
+    width: 260px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    height: 12px;
+  }
+
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, rgba(255,255,255,0.98), rgba(200,200,200,0.85));
+    transition: width 300ms ease;
+  }
+
+  .progress-text {
+    color: #ddd;
+    font-size: 1.5rem;
+    margin-top: 8px;
+  }
+
+  /* Un pequeño logo opcional */
+  .logo {
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 0.6px;
+  }

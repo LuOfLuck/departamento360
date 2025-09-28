@@ -21,14 +21,31 @@
     
   
     <div class="imagenes">
-        <div id="panorama" class="image-1 "></div>
+        <div id="panorama" class="paronama image-1 ">
+
+            
+            <div id="loading"  role="status" aria-live="polite">
+                <div class="loading-overlay">
+                    <div class="logo">VIAR</div>
+                        <div class="loader" aria-hidden="true"></div>
+                        <div class="progress-wrap" aria-hidden="true">
+                          <div id="progressBar" class="progress-bar"></div>
+                        </div>
+                    <div id="progressText" class="progress-text">0%</div>
+              </div>
+              <div class="fondo"></div>
+            </div>
+                
+            </div>
+        
+        </div>
         <a id="button--top" href="#app"><button class="button imagenes__button button--subir">Subir</button>
     <div class="utton__center"></div>
         </a>
 
     </div>
   
-    <div id="box--cartel"class="box box--cartel box--active">
+    <div id="box--cartel"class="box box--cartel">
             <div class="box__header ">
                 <h3 class="box__header__h3">TITULO</h3>
             </div>
@@ -62,8 +79,5 @@
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 <script src="js/2.js">
 </script>
-</html>
-
-
 </body>
 </html>
