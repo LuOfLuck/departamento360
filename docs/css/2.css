@@ -66,35 +66,287 @@ body{
         width: 100vw;
         height: 100vh;
     }
-    .custom-hotspot {
-        height: 50px;
-        width: 50px;
-        background: black;
+.custom-hotspot {
+    display: block;
+    height: 30px;
+    width: 30px;
+    /* El hotspot base queda fijo en la posición */
+}
+
+.custom-hotspot .pulse {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.7), rgba(255,255,255,0.2));
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 10px rgba(255,255,255,0.7), 0 0 20px rgba(255,255,255,0.4);
+    transition: box-shadow 0.3s ease;
+    animation: pulse 2s infinite;
+    transform-origin: center center;
+}
+
+.custom-hotspot:hover .pulse {
+    cursor: pointer;
+    
+    box-shadow: 0 0 15px rgba(0, 200, 255, 0.9), 0 0 30px rgba(0, 200, 255, 0.6);
+    transition: .5s linear;
+    opacity: .5;
+}
+.custom-hotspot--desactive{
+  display: none;
+}
+
+.custom-exit {
+              
+    width: 20px;
+    height: 20px;
+
+}
+
+
+.custom-exit::before{
+    width: 100%;
+    height: 100%;
+    content: "⬆️";
+
+    background: transparent; /* gris semitransparente como pulse */
+    border-radius: 50%;       
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 10px rgba(255,255,255,0.7), 0 0 20px rgba(255,255,255,0.4);
+    font-size: 24px;          
+    color: rgba(255, 255, 255, 0.6); 
+    animation: pulse 2s infinite; 
+}
+.custom-exit:hover {
+    transition: .5s linear;
+    opacity: .5;
+    
+}
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(120, 120, 120, 0.7), 0 0 20px rgba(100, 100, 100, 0.4);
     }
-    div.custom-tooltip span {
-        visibility: hidden;
-        position: absolute;
-        border-radius: 3px;
-        background-color: #fff;
-        color: green;
-        text-align: center;
-        max-width: 200px;
-        padding: 5px 10px;
-        margin-left: -220px;
-        cursor: default;
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px rgba(150, 150, 150, 0.9), 0 0 40px rgba(130, 130, 130, 0.6);
     }
-    div.custom-tooltip:hover span{
-        visibility: visible;
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(120, 120, 120, 0.7), 0 0 20px rgba(100, 100, 100, 0.4);
     }
-    div.custom-tooltip:hover span:after {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 0;
-        border-width: 10px;
-        border-style: solid;
-        border-color: #fff transparent transparent transparent;
-        bottom: -20px;
-        left: -10px;
-        margin: 0 50%;
+}
+
+.a{
+    display: inline-block;
+    width: auto;
+    text-decoration: none;
+    margin: auto auto;
+}
+.banner{
+    display: flex;
+  align-items: center;
+  justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--white);
+    background-position: center;
+  background-repeat: no-repeat;
+    background-size: cover;
+}
+.banner__center{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+.banner__center__h1{
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+/* Iframe */
+.box__body__iframe {
+    display: none;
+    width: 90%;
+    height: 200px;
+    margin: auto;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+
+
+
+
+/* Contenedor principal */
+.box {
+    display: flex;
+    flex-direction: column;
+    margin: auto 50px auto auto;
+    width: 30vw;
+    max-width: 400px;
+    position: fixed;
+    top: 15vh;
+    right: 40px;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    font-weight: 600;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.5s ease, z-index 0s linear 0.5s;
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(100, 100, 100, 0.5), 0 0 80px rgba(80, 80, 80, 0.2);
+    border: 1px solid rgba(150, 150, 150, 0.3);
+}
+
+/* Activar box */
+.box--active {
+    opacity: 1;
+    z-index: 210;
+    transition: opacity 0.5s ease;
+}
+
+/* Header del box */
+.box__header {
+    background: rgba(120, 120, 120, 0.4);
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(200, 200, 200, 0.2);
+    box-shadow: 0 0 15px rgba(150,150,150,0.3);
+}
+
+.box__header__h3 {
+    font-size: 1.8em;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(200,200,200,0.7);
+}
+
+/* Cuerpo del box */
+.box__body {
+    padding: 15px 20px;
+    background: rgba(80, 80, 80, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.box__body__p {
+    margin-bottom: 15px;
+    text-align: justify;
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+/* Iframe futurista */
+.box__body__iframe {
+    display: none;
+    width: 90%;
+    height: 220px;
+    border: 1px solid rgba(150,150,150,0.3);
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 20px rgba(120,120,120,0.5), 0 0 40px rgba(100,100,100,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.box__body__iframe:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(150,150,150,0.7), 0 0 50px rgba(120,120,120,0.5);
+}
+
+.box__body__iframe--active {
+    display: block;
+}
+
+/* Botón cerrar futurista */
+.button--end {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: none;
+    z-index: 1000;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    font-weight: bold;
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(120,120,120,0.7), 0 0 25px rgba(100,100,100,0.5);
+    animation: pulseButton 2s infinite;
+}
+
+.button--end:hover {
+    background: rgba(150,150,150,0.9);
+    transform: scale(1.2);
+    box-shadow: 0 0 25px rgba(150,150,150,0.9), 0 0 50px rgba(130,130,130,0.6);
+}
+
+.button--end--active {
+    display: block;
+}
+
+/* Animación de pulso botón */
+@keyframes pulseButton {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(120,120,120,0.7), 0 0 25px rgba(100,100,100,0.5);
     }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px rgba(150,150,150,0.9), 0 0 40px rgba(130,130,130,0.6);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(120,120,120,0.7), 0 0 25px rgba(100,100,100,0.5);
+    }
+}
+
+
+@media(max-width:768px){    
+    .banner__center{
+        font-size: 26px;
+    }
+    .box{
+        width: 35vw;
+        top: 10vh;
+        right: 20px;
+        font-size: 13px;
+    }
+}
+@media(max-width:568px){
+    .banner__center{
+        font-size: 20px;
+    }
+    .box{
+        width: 70vw;
+        top: 15vh;
+        left: 15vw;
+        font-size: 14px;
+    }
+    .footer{
+        height: 53px;
+    }
+}

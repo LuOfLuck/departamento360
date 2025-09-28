@@ -1,5 +1,11 @@
+const boxEnd = document.getElementById("button--end")
+const boxCartel = document.getElementById("box--cartel")
+const buttonTop = document.getElementById("button--top")
+var boxTitulo = boxCartel.querySelector(".box__header__h3")
+var boxDescripcion = boxCartel.querySelector(".box__body__p")
 
-
+var iframe = document.querySelector('#iframe');
+//C:\Users\Lucas\AppData\Roaming\npm\http-server
 const modelos = {
     "circle":{
         "objetos":[
@@ -8,17 +14,18 @@ const modelos = {
                 "pitch": -8.40,
                 "yaw": 3.23,
                 "cssClass": "custom-hotspot",
-                  "createTooltipArgs": {
-                                          "titulo":"Smart TV 32 pulgadas",
-                "descripcion":`
+                "createTooltipArgs": {
+                    "titulo":"Smart TV 32 pulgadas",
+                    "descripcion":`
                     Una tele copada, todos queremos una telesmart, 
                     yo quiero una tele tu quieres una tele, ella quiere una tele, metele wacho
                     mira esta tremenda es de colores y tiene waifai incluido
 
                     `,
-                "url":"https://www.youtube.com/embed/2ajWUp8F694?si=XEYk7BVDaDiQmnAD",
-                
-                      }
+                    "url":"https://www.youtube.com/embed/2ajWUp8F694?si=XEYk7BVDaDiQmnAD",
+                    "pitch": -8.40,
+                    "yaw": 3.23,
+            }
             },  
             {
                
@@ -33,7 +40,9 @@ const modelos = {
                     eheh mira aca te haces tremendas comidas
                     comer es eso que hace feliz a la gente
                     Se feliz :)`,
-                "url":"",
+                    "url":"",
+                    "pitch": -21.231,
+                    "yaw": 95.08,
                  }
             },  
         ],
@@ -43,61 +52,40 @@ const modelos = {
                 "pitch": -25.99,
                 "yaw": 44.63,
                 "type": "scene",
-                "text": "Spring House or Dairy",
-                "sceneId": "1"
+                "sceneId": "1",
+                "cssClass": "custom-exit",
             },  
         ],
     },
     "house":{
             "objetos":[
             {
-                "titulo":"Smart TV 32 pulgadas",
-                "descripcion":`
-                    Una tele copada, todos queremos una telesmart, 
-                    yo quiero una tele tu quieres una tele, ella quiere una tele, metele wacho
-                    mira esta tremenda es de colores y tiene waifai incluido
-
-                    `,
-                "url":"https://www.youtube.com/embed/2ajWUp8F694?si=XEYk7BVDaDiQmnAD",
-                
                 "pitch": 14.1,
                 "yaw": 1.5,
                 "cssClass": "custom-hotspot",
                 "createTooltipArgs": {
-                    "titulo":"Smart TV 32 pulgadas",
+                    "titulo":"RELOS GIGANTE",
                     "descripcion":`
-                    Una tele copada, todos queremos una telesmart, 
-                    yo quiero una tele tu quieres una tele, ella quiere una tele, metele wacho
-                    mira esta tremenda es de colores y tiene waifai incluido
-                    `,
-                    "url":"https://www.youtube.com/embed/2ajWUp8F694?si=XEYk7BVDaDiQmnAD",
-                
-                }
-            },  
-            {
-                "pitch": 0,
-                "yaw": 0,
-                "cssClass": "custom-hotspot",
-                "createTooltipArgs": {
-                    "titulo":"2 cosinas de pared",
-                    "descripcion":`
-                    ¿Porque tener una si podes tener 2?
-                    No hablo de esposas else cocinas de pared bien copadas,
-                    eheh mira aca te haces tremendas comidas
-                    comer es eso que hace feliz a la gente
-                    Se feliz :)`,
-                    "url":"",
+                        Una reloj copada, todos queremos un reloj, 
+                        yo quiero un reloj tu quieres una reloj, ella quiere una reloj, metele wacho
+                        mira esta tremenda es de colores y tiene waifai incluido
+
+                        `, "url":"https://www.youtube.com/embed/2ajWUp8F694?si=XEYk7BVDaDiQmnAD",
+                    "pitch": 14.1,
+                    "yaw": 1.5,
                 }
             },  
         ],
         "salidas":[
             {       
                 "id":0,
-                "pitch": -2.1,
-                "yaw": 132.9,
+                "pitch": -8.27,
+                "yaw":  53.44,
                 "type": "scene",
-                "text": "Spring House or Dairy",
+                "cssClass": "custom-exit",
+                "text": "",
                 "sceneId": "0"
+
             },  
         ],
     }
@@ -126,6 +114,7 @@ class ViewerConstructor{
        // this.boxEnd = boxEnd;
         this.viewer  = pannellum.viewer('panorama',  this.createdViewer(this.modelos, this.cuartos))
         this.viewerClic()
+        this.viewerExit()
 
     }
     createdViewer(modelos, cuartos){
@@ -134,7 +123,6 @@ class ViewerConstructor{
         v = {
             "default": {
                 "firstScene": cuartos[0].id,
-                "author": "Lucas",
                 "sceneFadeDuration": 1000,
                 "autoLoad": true,
                 "showControls": false,
@@ -170,26 +158,63 @@ class ViewerConstructor{
 
     viewerClic(){
         this.viewer.on("mousedown", (event) => {
+            console.log(event)
             const coords = this.viewer.mouseEventToCoords(event);
             const pitch = coords[0];
             const yaw = coords[1];
             console.log(`Click detectado en -> Pitch: ${pitch}, Yaw: ${yaw}`);
         });
+    }
+    viewerFocus(args){
+        this.viewer.lookAt(args.pitch, args.yaw, 20, 2500);
 
+        boxEnd.classList.add('button--end--active');
+        boxCartel.classList.add('box--active');
+        boxTitulo.innerText = args.titulo;
+        boxDescripcion.innerText = args.descripcion;
+        
+        if(args.url!=""){
+            iframe.src = args.url;
+            iframe.classList.add('box__body__iframe--active');
+        }else{
+            iframe.classList.remove('box__body__iframe--active');
+        }
+
+    }
+    viewerNormalize(){
+        let hotdiv = document.querySelectorAll(".custom-hotspot--desactive")
+        hotdiv.forEach(function (element) {
+            element.classList.remove("custom-hotspot--desactive")
+        });
+        buttonTop.style.display = 'block'
+        boxEnd.classList.remove("button--end--active");
+        boxCartel.classList.remove("box--active");
+        let pitch = vistaPrinc.viewer.getPitch(); 
+        let yaw   = vistaPrinc.viewer.getYaw();   
+        this.viewer.lookAt(pitch, yaw, 100, 2500);
+
+    }
+    viewerExit(){
+        boxEnd.addEventListener("click", ()=> this.viewerNormalize()) 
+        //ola
     }
 
 }
+let vistaPrinc;
 const main = ()=>{
-    const vistaPrinc = new ViewerConstructor(modelos, cuartos)
+    vistaPrinc = new ViewerConstructor(modelos, cuartos)
     console.log(vistaPrinc)
 }
 main()
 
-// Hot spot creation function
 function hotspot(hotSpotDiv, args) {
+    let pulse;
+    pulse = document.createElement("div")
+    pulse.classList.add('pulse');
     hotSpotDiv.classList.add('custom-tooltip');
+    hotSpotDiv.appendChild(pulse)
     hotSpotDiv.addEventListener("click", (event) => {
-        alert(args.titulo)
-        console.log(args.titulo)
+        vistaPrinc.viewerFocus(args);
+        hotSpotDiv.classList.add('custom-hotspot--desactive');
     });
 }

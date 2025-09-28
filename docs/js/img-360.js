@@ -354,3 +354,6 @@ buttonTop.addEventListener("click",e=>{
 
 			    en fin,nos vemos luego, cuidate. FIN (sigueremos conociendo personas interesante sin perder a las que tenemos)
 */
+
+
+//C:\Users\Lucas\AppData\Roaming\npm\http-server
