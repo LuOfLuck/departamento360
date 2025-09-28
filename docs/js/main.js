@@ -1,7 +1,10 @@
 const boxEnd = document.getElementById("button--end")
 const boxCartel = document.getElementById("box--cartel")
 const panorama = document.getElementById("panorama")
+const buttonAcceso = document.getElementById("button-acceso")
 const consejo = document.getElementById("consejo__span")
+const acceso = document.getElementById("acceso")
+
 var boxTitulo = boxCartel.querySelector(".box__header__h3")
 var boxDescripcion = boxCartel.querySelector(".box__body__p")
 var loadingEl = document.getElementById('loading');
@@ -52,7 +55,7 @@ const modelos = {
         ],
         "salidas":[
             {       
-                "id":1,
+                "id":0,
                 "pitch": -25.99,
                 "yaw": 44.63,
                 "type": "scene",
@@ -82,13 +85,55 @@ const modelos = {
         ],
         "salidas":[
             {       
-                "id":0,
+                "id":1,
                 "pitch": -8.27,
                 "yaw":  53.44,
                 "type": "scene",
                 "cssClass": "custom-exit",
                 "text": "",
                 "sceneId": "0"
+
+            },  
+             {       
+                "id":2,
+                "pitch": -9.08,
+                "yaw":  -42.33,
+                "type": "scene",
+                "cssClass": "custom-exit",
+                "text": "",
+                "sceneId": "2"
+
+            },  
+        ],
+    },
+    "cuarto":{
+            "objetos":[
+            {
+                "pitch": -42.38,
+                "yaw": 32.36,
+                "cssClass": "custom-hotspot",
+                "createTooltipArgs": {
+                    "titulo":"RELOS GIGANTE",
+                    "descripcion":`
+                        Una reloj copada, todos queremos un reloj, 
+                        yo quiero un reloj tu quieres una reloj, ella quiere una reloj, metele wacho
+                        mira esta tremenda es de colores y tiene waifai incluido
+
+                        `, "url":"https://www.youtube.com/embed/2ajWUp8F694?si=XEYk7BVDaDiQmnAD",
+                    "pitch": -42.38,
+                    "yaw": 32.36,
+                }
+            },  
+        ],
+        "salidas":[  
+             {       
+                "id":2,
+                "pitch":  -19.03,
+                "yaw":  82.30,
+                "type": "scene",
+                "cssClass": "custom-exit",
+                "text": "",
+                "sceneId": "2"
 
             },  
         ],
@@ -107,7 +152,14 @@ const cuartos = [
         "url":"https://www.luofluck.tech/360/2.jpg",
         "modelos":modelos.house.objetos,
         "salidas":modelos.house.salidas,
+    },
+    {
+        "id":"2",
+        "url":"https://www.luofluck.tech/360/3.jpg",
+        "modelos":modelos.cuarto.objetos,
+        "salidas":modelos.cuarto.salidas,
     }
+
 ]
 
 
@@ -210,6 +262,7 @@ class ViewerConstructor{
         progressBar.style.width = "100%";
         progressText.textContent = "100%";
         panorama.classList.add("cargado")
+        acceso.classList.add("app__aceso--mostrar")
         setTimeout(() => {
             loadingEl.classList.add("hidden");
         }, 300);
@@ -249,13 +302,16 @@ class ViewerConstructor{
         boxEnd.addEventListener("click", ()=> this.viewerNormalize()) 
     }
     loadViewer(){
+        if(acceso.classList.contains("app__aceso--mostrar")){
+            acceso.classList.remove("app__aceso--mostrar")
+        }
         this.showLoading("Cargando escena...");
         this.simulateProgress();
     }
     changeEscena(){
         this.viewer.on("scenechange",(sceneId)=>{
             console.log("Cambiando a escena:", sceneId);;
-            this.simulateProgress();
+            this.loadViewer();
         })
     }
     actualizarPantalla(){
@@ -271,6 +327,13 @@ let vistaPrinc;
 const main = ()=>{
     vistaPrinc = new ViewerConstructor(modelos, cuartos)
     console.log(vistaPrinc)
+    buttonAcceso.addEventListener("click", (e)=>{
+        if(acceso.classList.contains("app__aceso--default")){
+            acceso.classList.remove("app__aceso--default")
+        }else{
+            acceso.classList.add("app__aceso--default")
+        }
+    })
 }
 main()
 
