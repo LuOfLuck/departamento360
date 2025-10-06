@@ -16,10 +16,20 @@
     <link rel="stylesheet" href="css/carga.css">
     <link rel="stylesheet" href="css/box.css">
     <link rel="stylesheet" href="css/accesos.css">
+    <link rel="stylesheet" href="css/responsive.css">
     <title>VIAR</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
     <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-94EPE6HH1K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-94EPE6HH1K');
+</script>
 <body>
 <div id="app"> 
     <div class="imagenes">
@@ -53,26 +63,8 @@
             <button id="button--end" class=" imagenes__button button--end button--end--active">x</button>   
     </div>
     <div id="acceso" class="app__aceso app__aceso--default">
-        <div class="cont">
-            <div class="app__aceso__img">
-                <img src="img/cuartos/1.png" alt="">
-                <span class="text">room 1</span>
-            </div>    
-            <div class="app__aceso__img">
-                <img src="img/cuartos/1.png" alt="">
-                <span class="text">room 1</span>
-            </div>    
-            <div class="app__aceso__img">
-                <img src="img/cuartos/1.png" alt="">
-                <span class="text">room 1</span>
-            </div>    
-            <div class="app__aceso__img">
-                <img src="img/cuartos/1.png" alt="">
-                <span class="text">room 1</span>
-            </div>
-              
-
-            
+        <div id="acceso_cont" class="cont">
+          
         </div>
         <div id="button-acceso" class="app__aceso__button">
            <i class="fa-solid fa-angles-right"></i>

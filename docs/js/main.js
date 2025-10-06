@@ -4,6 +4,9 @@ const panorama = document.getElementById("panorama")
 const buttonAcceso = document.getElementById("button-acceso")
 const consejo = document.getElementById("consejo__span")
 const acceso = document.getElementById("acceso")
+const acceso_cont = document.getElementById("acceso_cont")
+const escene_change = document.getElementById("escene_change")
+
 
 var boxTitulo = boxCartel.querySelector(".box__header__h3")
 var boxDescripcion = boxCartel.querySelector(".box__body__p")
@@ -13,6 +16,9 @@ var progressText = document.getElementById('progressText');
 var intervar;
 var iframe = document.querySelector('#iframe');
 //C:\Users\Lucas\AppData\Roaming\npm\http-server
+
+
+
 const modelos = {
     "circle":{
         "objetos":[
@@ -133,7 +139,7 @@ const modelos = {
                 "type": "scene",
                 "cssClass": "custom-exit",
                 "text": "",
-                "sceneId": "2"
+                "sceneId": "1"
 
             },  
         ],
@@ -142,6 +148,7 @@ const modelos = {
 const cuartos = [
     {
         "id":"0",
+        "nombre": "circle",
         "url":"https://www.luofluck.tech/360/1.jpg",
         "modelos":modelos.circle.objetos,
         "salidas":modelos.circle.salidas,
@@ -149,12 +156,14 @@ const cuartos = [
     },
     {
         "id":"1",
+        "nombre": "house",
         "url":"https://www.luofluck.tech/360/2.jpg",
         "modelos":modelos.house.objetos,
         "salidas":modelos.house.salidas,
     },
     {
         "id":"2",
+        "nombre": "cuarto",
         "url":"https://www.luofluck.tech/360/3.jpg",
         "modelos":modelos.cuarto.objetos,
         "salidas":modelos.cuarto.salidas,
@@ -183,6 +192,7 @@ class ViewerConstructor{
         this.modelos = modelos;
         this.viewer  = pannellum.viewer('panorama', this.createdViewer(this.modelos, this.cuartos))
         this.carga = 0;
+        this.actualizarImagenes();
         this.viewerClic()
         this.viewerExit()
         this.changeEscena()
@@ -264,7 +274,7 @@ class ViewerConstructor{
         panorama.classList.add("cargado")
         acceso.classList.add("app__aceso--mostrar")
         setTimeout(() => {
-            loadingEl.classList.add("hidden");
+            //loadingEl.classList.add("hidden");
         }, 300);
     }
     viewerClic(){
@@ -272,6 +282,7 @@ class ViewerConstructor{
             const coords = this.viewer.mouseEventToCoords(event);
             console.log(`Click detectado en -> Pitch: ${coords[0]}, Yaw: ${coords[1]}`);
         });
+   
     }
     viewerFocus(args){
         this.viewer.lookAt(args.pitch, args.yaw, 20, 2500);
@@ -312,13 +323,30 @@ class ViewerConstructor{
         this.viewer.on("scenechange",(sceneId)=>{
             console.log("Cambiando a escena:", sceneId);;
             this.loadViewer();
+            this.actualizarImagenes();
         })
     }
-    actualizarPantalla(){
-        window.addEventListener("resize", () => {
-            alert("cambio de pantalla")
-            this.viewer.resize();
-        });
+    actualizarImagenes(){
+        let scena_actual = this.viewer.getScene();
+        console.log(scena_actual)
+        acceso_cont.innerHTML = "";
+        cuartos.forEach((cuarto)=>{
+            if(cuarto.id != scena_actual){
+                acceso_cont.insertAdjacentHTML('beforeend', `
+                    <div class="app__aceso__img" data-scena="${cuarto.id}">
+                        <img src="img/cuartos/${cuarto.id}.png"  alt="">
+                        <span class="text">${cuarto.nombre}</span>
+                    </div> 
+            `);
+            }
+        })
+        let imagenes = document.querySelectorAll(".app__aceso__img");
+        console.log(imagenes)
+        imagenes.forEach((imagen)=>{
+                imagen.addEventListener("click", ()=>{
+                this.viewer.loadScene(imagen.dataset.scena);
+            })
+        })
     }
 
 }

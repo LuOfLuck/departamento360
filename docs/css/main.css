@@ -168,3 +168,30 @@ body{
 
     }
 }
+
+
+
+/* === Extra pequeño: Celulares chicos (≤ 480px) === */
+@media (max-width: 480px) {
+ 
+}
+
+/* === Pequeño: Celulares medianos (481px – 768px) === */
+@media (min-width: 481px) and (max-width: 768px) {
+
+}
+
+/* === Mediano: Tablets (769px – 1024px) === */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+}
+
+/* === Grande: Laptops (1025px – 1440px) === */
+@media (min-width: 1025px) and (max-width: 1440px) {
+
+}
+
+/* === Extra grande: Monitores grandes (1441px+) === */
+@media (min-width: 1441px) {
+ 
+}

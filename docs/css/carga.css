@@ -66,11 +66,11 @@
     font-size: 1.5rem;
     margin-top: 8px;
   }
-    .progress-text-consejo{
+  .progress-text-consejo{
         opacity: .9;
         font-size: .8rem;
         margin-top: 20px;
-    }
+  }
   .logo {
     color: #fff;
     font-weight: 700;
@@ -78,13 +78,32 @@
     letter-spacing: 0.6px;
   }
 
-@media(max-width:768px){    
 
-}
-@media(max-width:568px){
+/* === Extra pequeño: Celulares chicos (≤ 480px) === */
+@media (max-width: 480px) {
   .progress-text-consejo{
     padding: 15px;
     font-size: .6rem;
     margin-top: 20px;
   }
+}
+
+/* === Pequeño: Celulares medianos (481px – 768px) === */
+@media (min-width: 481px) and (max-width: 768px) {
+
+}
+
+/* === Mediano: Tablets (769px – 1024px) === */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+}
+
+/* === Grande: Laptops (1025px – 1440px) === */
+@media (min-width: 1025px) and (max-width: 1440px) {
+
+}
+
+/* === Extra grande: Monitores grandes (1441px+) === */
+@media (min-width: 1441px) {
+ 
 }
