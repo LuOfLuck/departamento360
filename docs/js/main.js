@@ -274,7 +274,7 @@ class ViewerConstructor{
         panorama.classList.add("cargado")
         acceso.classList.add("app__aceso--mostrar")
         setTimeout(() => {
-            //loadingEl.classList.add("hidden");
+            loadingEl.classList.add("hidden");
         }, 300);
     }
     viewerClic(){
